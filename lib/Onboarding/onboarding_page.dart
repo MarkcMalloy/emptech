@@ -2,6 +2,7 @@ import 'package:emptech/Onboarding/Components/page_view_indicator.dart';
 import 'package:emptech/Onboarding/onboarding_measurement.dart';
 import 'package:emptech/Utils/emptech_colors.dart';
 import 'package:emptech/Utils/emptech_theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,6 +19,18 @@ class _OnboardingPageState extends State<OnboardingPage> {
   int currentIndex = 0;
 
   PageController controller = PageController();
+
+  @override
+  void initState() {
+    super.initState();
+    initializeDefault();
+  }
+
+  Future<void> initializeDefault() async {
+    FirebaseApp app = await Firebase.initializeApp();
+    print('Initialized default app $app');
+  }
+
 
   @override
   Widget build(BuildContext context) {

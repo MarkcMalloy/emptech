@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>419990737475-mocn5sju15bp5ch1fhr3epb7pm1p9ir9.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.419990737475-mocn5sju15bp5ch1fhr3epb7pm1p9ir9</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCX3WMVNxMqbEsTH44s2wE08BAiCyKAWB4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>419990737475</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>emptech.app.emptech</string>
+	<key>PROJECT_ID</key>
+	<string>emptech-f0115</string>
+	<key>STORAGE_BUCKET</key>
+	<string>emptech-f0115.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:419990737475:ios:b1aaac7243e5860d64faf6</string>
+</dict>
+</plist>
