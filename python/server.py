@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, request
+import np as np
+from flask import Flask, jsonify, request, cv2
 
 app = Flask(__name__)
 
@@ -18,10 +19,13 @@ def get():
 #  any errors that may occur when working with uploaded files.
 def upload_image():
     file = request.files['file']
-    file_size = len(file.read())
-    file.seek(0)  # Reset file pointer to beginning of file
-    file.save('uploaded_image.jpg')
-    return jsonify({'message': f'Image uploaded successfully ({file_size} bytes)'})
+    file_bytes = file.read()
+    file_array = np.frombuffer(file_bytes, np.uint8)
+    image = cv2.imdecode(file_array, cv2.IMREAD_COLOR)
+    # Process the image using OpenCV here
+    # ...
+    cv2.imwrite('processed_image.jpg', image)
+    return jsonify({'message': 'Image processed and saved successfully'})
 
 
 if __name__ == '__main__':
