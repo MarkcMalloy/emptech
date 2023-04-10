@@ -1,8 +1,9 @@
-import 'package:emptech/Onboarding/Components/page_view_indicator.dart';
-import 'package:emptech/Onboarding/onboarding_measurement.dart';
-import 'package:emptech/Utils/emptech_colors.dart';
-import 'package:emptech/Utils/emptech_theme.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'dart:io';
+
+import 'package:emptech.app.emptech/Onboarding/onboarding_measurement.dart';
+import 'package:emptech.app.emptech/Services/firebase_services.dart';
+import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
+import 'package:emptech.app.emptech/Utils/emptech_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,8 +28,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   Future<void> initializeDefault() async {
-    FirebaseApp app = await Firebase.initializeApp();
-    print('Initialized default app $app');
+    FirebaseService service = FirebaseService();
+    service.uploadImageToFirebase(File("assets/onboarding_picutre_1.jpg"));
   }
 
 
