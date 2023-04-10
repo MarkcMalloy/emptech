@@ -10,7 +10,7 @@ class ApiService {
   This Dart code creates a http.MultipartRequest with a http.MultipartFile that contains the JPG file.
   The MultipartRequest is then sent to the Flask server using the request.send() method.
    */
-    var url = 'http://localhost:5000/upload';
+    var url = 'http://localhost:5000/upload-image';
     var currentDirectory = Directory.current;
     var imagePath = '${currentDirectory.path}/assets/niels(1).jpg';
     var file = File(imagePath);

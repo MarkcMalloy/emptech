@@ -1,38 +1,36 @@
+import io
 import cv2
 import numpy as np
-from flask import Flask, jsonify, request, make_response
+import mediapipe as mp
+from flask import Flask, request, jsonify, send_file
+
+from hand_processing_controller import HandProcessor
 
 app = Flask(__name__)
 
-@app.route('/api', methods=['GET'])
-def get():
-    # TODO: Implement GET functionality
-    return jsonify({'message': 'GET response'})
-
-@app.route('/upload', methods=['POST'])
+@app.route('/upload-image', methods=['POST'])
 def upload_image():
-    # Read image from request
+    # Load image from request
     file = request.files['file']
     file_bytes = file.read()
     file_array = np.frombuffer(file_bytes, np.uint8)
     image = cv2.imdecode(file_array, cv2.IMREAD_COLOR)
 
-    # Process the image using OpenCV
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    blur = cv2.GaussianBlur(gray, (7, 7), 0)
-    canny = cv2.Canny(blur, 50, 150)
-    contours, _ = cv2.findContours(canny, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    # Initialize HandProcessor
+    hand_processor = HandProcessor()
+    hand_landmarks = hand_processor.detect_hand_landmarks(image)
 
-    # Draw contours on image
-    result = cv2.drawContours(image.copy(), contours, -1, (0, 255, 0), 3)
+    # Process image and get hand landmarks
+    hand_landmarks = hand_processor.process(image)
 
-    # Convert result to JPEG and return it in the response
-    success, result_buf = cv2.imencode('.jpg', result)
-    if not success:
-        return jsonify({'message': 'Failed to encode result as JPEG'}), 500
-    response = make_response(result_buf.tobytes())
-    response.headers.set('Content-Type', 'image/jpeg')
-    return response
+    # Draw hand landmarks on image
+    drawn_image = hand_processor.draw_hand_landmarks(hand_landmarks, image)
+
+    # Convert image to JPEG format and return as response
+    success, encoded_image = cv2.imencode('.jpg', drawn_image)
+    response = encoded_image.tobytes()
+
+    return send_file(io.BytesIO(response), mimetype='image/jpeg')
 
 if __name__ == '__main__':
     app.run(debug=True)
