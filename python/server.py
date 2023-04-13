@@ -7,7 +7,7 @@ from flask import Flask, request, jsonify, send_file
 from hand_processing_controller import HandProcessor
 
 app = Flask(__name__)
-
+number = 0
 @app.route('/upload-image', methods=['POST'])
 def upload_image():
     # Load image from request
@@ -18,10 +18,9 @@ def upload_image():
 
     # Initialize HandProcessor
     hand_processor = HandProcessor()
-    hand_landmarks = hand_processor.detect_hand_landmarks(image)
 
-    # Process image and get hand landmarks
-    hand_landmarks = hand_processor.process(image)
+    # Detect hand landmarks
+    hand_landmarks = hand_processor.detect_hand_landmarks(image)
 
     # Draw hand landmarks on image
     drawn_image = hand_processor.draw_hand_landmarks(hand_landmarks, image)
