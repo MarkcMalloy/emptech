@@ -1,4 +1,4 @@
-import 'package:emptech/Utils/emptech_colors.dart';
+import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
