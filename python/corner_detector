@@ -1,0 +1,14 @@
+# Import the PaperDetector class from the 'CV' module
+from paper_detector import PaperDetector
+
+# Create an instance of the PaperDetector class
+paper_detector = PaperDetector()
+
+# Call the find_a4_contour() method with an image path as an argument
+image_path = "../assets/antonio(1).jpg"  # Replace with your actual image file path
+paper_detector.find_a4_contour(image_path)
+
+# You can also access other methods or properties of the PaperDetector class as needed
+# For example:
+# paper_detector.some_other_method()
+# paper_detector.some_property
