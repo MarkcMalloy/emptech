@@ -69,3 +69,4 @@ class PaperController:
         scale_resolution_y_mm_per_pixel = self.a4_height_mm / height_pixels
         print('The height was ' + str(height_pixels) + ' and width ' + str(width_pixels))
         return round((scale_resolution_x_mm_per_pixel+scale_resolution_y_mm_per_pixel)/2,3)
+    
