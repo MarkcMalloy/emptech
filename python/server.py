@@ -18,18 +18,18 @@ def upload_image():
     image = cv2.imdecode(file_array, cv2.IMREAD_COLOR)
 
     # Initialize HandProcessor & ScaleProcessor
-    hand_processor = HandProcessor()
     scale_processor = ScaleProcessor()
-    # Detect hand landmarks
-    hand_landmarks = hand_processor.detect_hand_landmarks(image)
+    hand_processor = HandProcessor()
     # Detect A4 contour  
-    paper_contours = scale_processor.drawRedPaperContours(image)                                                                                
+    paper_contours = scale_processor.detect_a4_paper(image)    
+    # Detect hand landmarks
+    hand_landmarks = hand_processor.detect_hand_landmarks(image)                                                                           
     # Draw hand landmarks on image
     drawn_image = paper_contours
     drawn_image = hand_processor.draw_hand_landmarks(hand_landmarks, image)
 
     # Convert image to JPEG format and return as response
-    success, encoded_image = cv2.imencode('.jpg', drawn_image)
+    success, encoded_image = cv2.imencode('.jpg', paper_contours)
     response = encoded_image.tobytes()
 
     return send_file(io.BytesIO(response), mimetype='image/jpeg')
