@@ -14,7 +14,7 @@ class HandProcessor:
         results = self.hands.process(image_rgb)
         return results.multi_hand_landmarks
 
-    def draw_hand_landmarks(self, hand_landmarks, image):
+    def draw_hand_landmarks(self, hand_landmarks, image, mm_per_pixel):
         drawn_image = np.copy(image)
         if hand_landmarks:
             for hand_lm in hand_landmarks:
@@ -28,9 +28,10 @@ class HandProcessor:
                     x1, y1 = int(hand_lm.landmark[i].x * w), int(hand_lm.landmark[i].y * h)
                     x2, y2 = int(hand_lm.landmark[i + 1].x * w), int(hand_lm.landmark[i + 1].y * h)
                     distance = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+                    distance = distance * mm_per_pixel
                     cx = (x1 + x2) // 2
                     cy = (y1 + y2) // 2
-                    cv2.putText(drawn_image, f'{distance:.2f} pixels', (cx, cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+                    cv2.putText(drawn_image, f'{distance:.2f} mm', (cx, cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
                                 (255, 0, 0), 1, cv2.LINE_AA)
         return drawn_image
 

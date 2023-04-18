@@ -1,14 +1,23 @@
 # Import the PaperDetector class from the 'CV' module
-from paper_detector import PaperDetector
+import cv2
+from paper_processing_controller import PaperController
+from hand_processing_controller import HandProcessor
 
 # Create an instance of the PaperDetector class
-paper_detector = PaperDetector()
+paper_detector = PaperController()
+hand_processor = HandProcessor()
 
 # Call the find_a4_contour() method with an image path as an argument
-image_path = "../assets/antonio(1).jpg"  # Replace with your actual image file path
-paper_detector.find_a4_contour(image_path)
+image_path = "../assets/niels(1).jpg"  # Replace with your actual image file path
+# Load the image
+image = cv2.imread(image_path)
 
-# You can also access other methods or properties of the PaperDetector class as needed
-# For example:
-# paper_detector.some_other_method()
-# paper_detector.some_property
+scale = paper_detector.find_a4_contour_and_scale(image)
+print('The scale resolution is ' + str(scale) + ' pixel/mm')
+# Detect hand landmarks
+hand_landmarks = hand_processor.detect_hand_landmarks(image)                                                                           
+# Draw hand landmarks on image
+drawn_image = image
+drawn_image = hand_processor.draw_hand_landmarks(hand_landmarks, image, scale)
+cv2.imshow("hand landmarks", drawn_image)
+cv2.waitKey(3000)

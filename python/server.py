@@ -5,7 +5,7 @@ import mediapipe as mp
 from flask import Flask, request, jsonify, send_file
 
 from hand_processing_controller import HandProcessor
-from scale_processing_controller import ScaleProcessor
+from paper_processing_controller import PaperController
 
 app = Flask(__name__)
 number = 0
@@ -18,7 +18,7 @@ def upload_image():
     image = cv2.imdecode(file_array, cv2.IMREAD_COLOR)
 
     # Initialize HandProcessor & ScaleProcessor
-    scale_processor = ScaleProcessor()
+    scale_processor = PaperController()
     hand_processor = HandProcessor()
     # Detect A4 contour  
     paper_contours = scale_processor.detect_a4_paper(image)    
