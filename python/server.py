@@ -28,7 +28,6 @@ def upload_image():
     # Draw hand landmarks on image
     drawn_image = image
     drawn_image = hand_processor.draw_hand_landmarks(hand_landmarks, image, scale)
-    cv2.destroyAllWindows()
     # Convert image to JPEG format and return as response
     success, encoded_image = cv2.imencode('.jpg', scale_image)
     response = encoded_image.tobytes()
