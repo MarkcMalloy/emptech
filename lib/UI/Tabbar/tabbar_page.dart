@@ -1,4 +1,7 @@
+import 'package:emptech.app.emptech/UI/Tabbar/Components/tabbar_badge_icon_dashboard.dart';
+import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:motion_tab_bar_v2/motion-badge.widget.dart';
 import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
 import 'package:motion_tab_bar_v2/motion-tab-item.dart';
@@ -19,7 +22,7 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
     setState(() {
       _tabController = TabController(
         initialIndex: 1,
-        length: 4,
+        length: 3,
         vsync: this,
       );
     });
@@ -34,73 +37,17 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xfffafafa),
       appBar: AppBar(
-        title: Text("d"),
-      ),
-      bottomNavigationBar: MotionTabBar(
-        initialSelectedTab: "Home",
-        useSafeArea: true, // default: true, apply safe area wrapper
-        labels: const ["Dashboard", "Home", "Profile", "Settings"],
-        // Profil -> Dine egne oplysninger, Hvilke handsker er i brug, Man kan administrere sine handkser + dashboard
-        // Order Glove -> Onboarding module -> Camera page -> Order received / confirmed page with result image
-        // Min virksomhed?
-        icons: const [Icons.dashboard, Icons.home, Icons.people_alt, Icons.settings],
-
-        // optional badges, length must be same with labels
-        badges: [
-          // Default Motion Badge Widget
-          const MotionBadgeWidget(
-            text: '99+',
-            textColor: Colors.white, // optional, default to Colors.white
-            color: Colors.red, // optional, default to Colors.red
-            size: 18, // optional, default to 18
-          ),
-
-          // custom badge Widget
-          Container(
-            color: Colors.black,
-            padding: const EdgeInsets.all(2),
-            child: const Text(
-              '48',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-              ),
-            ),
-          ),
-
-          // allow null
-          null,
-
-          // Default Motion Badge Widget with indicator only
-          const MotionBadgeWidget(
-            isIndicator: true,
-            color: Colors.red, // optional, default to Colors.red
-            size: 5, // optional, default to 5,
-            show: true, // true / false
-          ),
-        ],
-        tabSize: 50,
-        tabBarHeight: 55,
-        textStyle: const TextStyle(
-          fontSize: 12,
-          color: Colors.black,
-          fontWeight: FontWeight.w500,
-        ),
-        tabIconColor: Colors.blue[600],
-        tabIconSize: 28.0,
-        tabIconSelectedSize: 26.0,
-        tabSelectedColor: Colors.blue[900],
-        tabIconSelectedColor: Colors.white,
-        tabBarColor: const Color(0xFFAFAFAF),
-        onTabItemSelected: (int value) {
-          setState(() {
-            _tabController!.index = value;
-          });
-        },
-      ),
+        backgroundColor:  CustomColors.foregroundColor,
+          title: Text(
+        "EmpTech",
+        style: GoogleFonts.montserrat(fontStyle: FontStyle.italic),
+      )),
+      bottomNavigationBar: navBar(),
       body: TabBarView(
-        physics: NeverScrollableScrollPhysics(), // swipe navigation handling is not supported
+        physics:
+            NeverScrollableScrollPhysics(), // swipe navigation handling is not supported
         controller: _tabController,
         // ignore: prefer_const_literals_to_create_immutables
         children: <Widget>[
@@ -108,16 +55,50 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
             child: Text("Dashboard"),
           ),
           const Center(
-            child: Text("Home"),
+            child: Text("Order\nGlove"),
           ),
           const Center(
             child: Text("Profile"),
           ),
-          const Center(
-            child: Text("Settings"),
-          ),
         ],
       ),
+    );
+  }
+
+  Widget navBar() {
+    return MotionTabBar(
+      initialSelectedTab: "Dashboard",
+      useSafeArea: true, // default: true, apply safe area wrapper
+      labels: const ["Dashboard", "Order Glove", "Profile"],
+      // Profil -> Dine egne oplysninger, Hvilke handsker er i brug, Man kan administrere sine handkser + dashboard
+      // Order Glove -> Onboarding module -> Camera page -> Order received / confirmed page with result image
+      // Min virksomhed?
+      icons: const [Icons.dashboard, Icons.camera, Icons.people_alt],
+
+      // optional badges, length must be same with labels
+      badges: const [
+        /*
+         TabBarBadgeIcon(),
+        TabBarBadgeIcon(),
+        TabBarBadgeIcon(),
+         */
+      ],
+      tabSize: 50,
+      tabBarHeight: 65,
+      textStyle: GoogleFonts.montserrat(fontSize: 18,
+        color: Color(0xfffafafa),
+        fontWeight: FontWeight.w500,),
+      tabIconColor: CustomColors.iconColor,
+      tabIconSize: 28.0,
+      tabIconSelectedSize: 26.0,
+      tabSelectedColor: CustomColors.backgroundColor.withOpacity(0.4),
+      tabIconSelectedColor: Colors.white,
+      tabBarColor: CustomColors.foregroundColor,
+      onTabItemSelected: (int value) {
+        setState(() {
+          _tabController!.index = value;
+        });
+      },
     );
   }
 }
