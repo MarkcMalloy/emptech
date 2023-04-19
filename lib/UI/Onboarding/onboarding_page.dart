@@ -25,7 +25,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   void initState() {
     super.initState();
-    initializeDefault();
+    //initializeDefault();
   }
 
   Future<void> initializeDefault() async {

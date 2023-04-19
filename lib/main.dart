@@ -18,8 +18,6 @@ void main() async {
 // Step #3 Position your phone vertically above the center of the hand (See figure 2). If you stand up with the piece of paper on a desk, the height of your phone should be between your elbow and shoulder. Make sure all corners of the piece of paper are visible!
 
 void main() {
-  ApiService apiService = ApiService();
-  apiService.sendImage();
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }

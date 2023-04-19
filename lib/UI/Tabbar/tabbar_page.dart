@@ -1,3 +1,4 @@
+import 'package:emptech.app.emptech/UI/Onboarding/onboarding_page.dart';
 import 'package:emptech.app.emptech/UI/Tabbar/Components/tabbar_badge_icon_dashboard.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:flutter/material.dart';
@@ -53,13 +54,9 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
         controller: _tabController,
         // ignore: prefer_const_literals_to_create_immutables
         children: <Widget>[
-          const Center(
-            child: Text("Dashboard"),
-          ),
+          const OnboardingPage(),
           CameraPage(),
-          const Center(
-            child: Text("Profile"),
-          ),
+          const OnboardingPage()
         ],
       ),
     );

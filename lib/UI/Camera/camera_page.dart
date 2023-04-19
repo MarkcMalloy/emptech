@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:camera/camera.dart';
+import 'package:emptech.app.emptech/API/api_service.dart';
+import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -14,6 +17,7 @@ class CameraPage extends StatefulWidget {
 class _CameraPageState extends State<CameraPage> {
   late CameraController _cameraController;
   late List<CameraDescription> _cameras;
+  ApiService apiService = ApiService();
   String? _imagePath;
 
   @override
@@ -35,8 +39,11 @@ class _CameraPageState extends State<CameraPage> {
   }
 
   Future<void> _onCaptureButtonPressed() async {
-    late CameraController cameraController;
+    //late CameraController cameraController;
+    //var imagePath = '../assets/niels(1).jpg';
+    //var file = File(imagePath);
     try {
+      /*
       cameraController = _cameraController;
       if (!cameraController.value.isInitialized) {
         return;
@@ -47,38 +54,25 @@ class _CameraPageState extends State<CameraPage> {
         '${DateTime.now()}.png',
       );
 
-      await cameraController.takePicture();
+       */
+      //var img = await cameraController.takePicture();
       setState(() {
-        _imagePath = path;
+        //_imagePath = img.path;
       });
 
       // Send image as HTTP POST request
-      File imageFile = File(_imagePath!);
-      List<int> imageBytes = await imageFile.readAsBytes();
-      String base64Image = base64Encode(imageBytes);
-
-      var response = await http.post(
-        Uri.parse('https://example.com/upload'),
-        body: {'image': base64Image},
-      );
-
-      if (response.statusCode == 200) {
-        // Image uploaded successfully
-        print('Image uploaded successfully!');
-      } else {
-        // Failed to upload image
-        print('Failed to upload image. Status code: ${response.statusCode}');
-      }
+      var response = await apiService.sendImage(File(""));
     } catch (e) {
       print('Error capturing image: $e');
     } finally {
-      cameraController?.dispose();
+      //cameraController?.dispose();
     }
   }
 
+
   @override
   void dispose() {
-    _cameraController?.dispose();
+    _cameraController.dispose();
     super.dispose();
   }
 
@@ -91,16 +85,36 @@ class _CameraPageState extends State<CameraPage> {
     return Scaffold(
       body: Stack(
         children: [
-          CameraPreview(_cameraController),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ElevatedButton(
-              onPressed: _onCaptureButtonPressed,
-              child: Text('Capture Image'),
+          Positioned.fill(
+            child: AspectRatio(
+              aspectRatio: MediaQuery.of(context).size.aspectRatio,
+              child: CameraPreview(_cameraController),
             ),
+          ),
+          Positioned(
+            bottom: 120,
+            right: 90,
+            left: 90,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                  foregroundColor: buttonColor(CustomColors.backgroundColor),
+                  backgroundColor: buttonColor(CustomColors.foregroundColor)),
+              onPressed: (){
+                _onCaptureButtonPressed();
+              },
+              child: Text(
+                'Capture Image',
+                style: GoogleFonts.roboto(
+                    fontSize: 22, fontWeight: FontWeight.w400),
+              ),
+            )
           ),
         ],
       ),
     );
+  }
+
+  MaterialStatePropertyAll<Color> buttonColor(Color _color) {
+    return MaterialStatePropertyAll<Color>(_color);
   }
 }
