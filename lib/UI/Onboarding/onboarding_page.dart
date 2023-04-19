@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:emptech.app.emptech/Onboarding/onboarding_measurement.dart';
 import 'package:emptech.app.emptech/Services/firebase_services.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:emptech.app.emptech/Utils/emptech_theme.dart';
@@ -8,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import 'onboarding_measurement.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);

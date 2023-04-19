@@ -1,8 +1,8 @@
+import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:emptech.app.emptech/Utils/emptech_theme.dart';
 
 import 'package:flutter/material.dart';
 
-import '../Utils/emptech_colors.dart';
 import 'Components/onboarding_texts.dart';
 
 class MeasurementOnboardingPage extends StatefulWidget {

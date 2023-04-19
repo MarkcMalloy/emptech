@@ -1,10 +1,9 @@
 import 'package:emptech.app.emptech/API/api_service.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:emptech.app.emptech/Utils/emptech_theme.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
-import 'Onboarding/onboarding_page.dart';
+import 'UI/Onboarding/onboarding_page.dart';
+import 'UI/Tabbar/tabbar_page.dart';
 
 /*
 void main() async {
@@ -15,9 +14,14 @@ void main() async {
  */
 
 
+// #2 Place your hand in the middle of a white piece of A4 paper, on a table which is NOT white
+// Step #3 Position your phone vertically above the center of the hand (See figure 2). If you stand up with the piece of paper on a desk, the height of your phone should be between your elbow and shoulder. Make sure all corners of the piece of paper are visible!
+
 void main() {
   ApiService apiService = ApiService();
   apiService.sendImage();
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,14 +34,14 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             brightness: Brightness.dark,
             primaryColor: CustomColors.foregroundColor,
-
+            /*
             textTheme: TextTheme(
                 headline1: CustomTheme.headlineTextStyle,
                 bodyText1: CustomTheme.subTextStyle),
           backgroundColor: CustomColors.foregroundColor,
-
+             */
           buttonTheme: CustomTheme.buttonTheme,
         ),
-        home: const OnboardingPage());
+        home: const TabBarPage());
   }
 }
