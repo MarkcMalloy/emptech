@@ -43,6 +43,8 @@ dependencies:
   firebase_storage: ^11.0.16
   http_parser: ^4.0.0
   motion_tab_bar_v2: ^0.2.6
+  camera: ^0.10.4
+  permission_handler: ^10.2.0
 
 dev_dependencies:
   flutter_test:

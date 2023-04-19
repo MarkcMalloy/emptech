@@ -6,6 +6,8 @@ import 'package:motion_tab_bar_v2/motion-badge.widget.dart';
 import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
 import 'package:motion_tab_bar_v2/motion-tab-item.dart';
 
+import '../Camera/camera_page.dart';
+
 class TabBarPage extends StatefulWidget {
   const TabBarPage({Key? key}) : super(key: key);
 
@@ -37,26 +39,24 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfffafafa),
+      backgroundColor: const Color(0xfffafafa),
       appBar: AppBar(
-        backgroundColor:  CustomColors.foregroundColor,
+          backgroundColor: CustomColors.foregroundColor,
           title: Text(
-        "EmpTech",
-        style: GoogleFonts.montserrat(fontStyle: FontStyle.italic),
-      )),
+            "EmpTech",
+            style: GoogleFonts.montserrat(fontStyle: FontStyle.italic),
+          )),
       bottomNavigationBar: navBar(),
       body: TabBarView(
         physics:
-            NeverScrollableScrollPhysics(), // swipe navigation handling is not supported
+            const NeverScrollableScrollPhysics(), // swipe navigation handling is not supported
         controller: _tabController,
         // ignore: prefer_const_literals_to_create_immutables
         children: <Widget>[
           const Center(
             child: Text("Dashboard"),
           ),
-          const Center(
-            child: Text("Order\nGlove"),
-          ),
+          CameraPage(),
           const Center(
             child: Text("Profile"),
           ),
@@ -85,9 +85,11 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
       ],
       tabSize: 50,
       tabBarHeight: 65,
-      textStyle: GoogleFonts.montserrat(fontSize: 18,
-        color: Color(0xfffafafa),
-        fontWeight: FontWeight.w500,),
+      textStyle: GoogleFonts.montserrat(
+        fontSize: 18,
+        color: const Color(0xfffafafa),
+        fontWeight: FontWeight.w500,
+      ),
       tabIconColor: CustomColors.iconColor,
       tabIconSize: 28.0,
       tabIconSelectedSize: 26.0,
