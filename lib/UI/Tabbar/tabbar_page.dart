@@ -18,6 +18,7 @@ class TabBarPage extends StatefulWidget {
 
 class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
   TabController? _tabController;
+  bool showContainer = false;
 
   @override
   void initState() {
@@ -42,21 +43,40 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: const Color(0xfffafafa),
       appBar: AppBar(
-          backgroundColor: CustomColors.foregroundColor,
-          title: Text(
-            "EmpTech",
-            style: GoogleFonts.montserrat(fontStyle: FontStyle.italic),
-          )),
+        backgroundColor: CustomColors.foregroundColor,
+        title: Text(
+          "EmpTech",
+          style: GoogleFonts.montserrat(fontStyle: FontStyle.italic),
+        ),
+        leading: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            IconButton(
+                onPressed: () {
+                  toggleInformationContainer();
+                },
+                icon: const Icon(
+                  Icons.info_outline_rounded,
+                  color: CustomColors.backgroundColor,
+                ))
+          ],
+        ),
+      ),
       bottomNavigationBar: navBar(),
-      body: TabBarView(
-        physics:
-            const NeverScrollableScrollPhysics(), // swipe navigation handling is not supported
-        controller: _tabController,
-        // ignore: prefer_const_literals_to_create_immutables
-        children: <Widget>[
-          const OnboardingPage(),
-          CameraPage(),
-          const OnboardingPage()
+      body: Stack(
+        children: [
+          TabBarView(
+            physics:
+                const NeverScrollableScrollPhysics(), // swipe navigation handling is not supported
+            controller: _tabController,
+            // ignore: prefer_const_literals_to_create_immutables
+            children: <Widget>[
+              const OnboardingPage(),
+              CameraPage(),
+              const OnboardingPage()
+            ],
+          ),
+          informationContainer()
         ],
       ),
     );
@@ -99,5 +119,73 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
         });
       },
     );
+  }
+
+  Widget informationContainer() {
+    return AnimatedPositioned(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+      top: showContainer ? MediaQuery.of(context).size.height / 10 : -800,
+      left: 24,
+      right: 24,
+      child: Container(
+        width: 200,
+        height: 260,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16.0),
+            //color: CustomColors.backgroundColor,
+            color: Color(0xfffafafa),
+            border:
+                Border.all(color: CustomColors.foregroundColor, width: 4.0)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+              child: Text('Get in touch!',
+                  style: GoogleFonts.roboto(
+                      color: CustomColors.foregroundColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold)),
+            ),
+            informationContainerRow(Icons.email_outlined, "nkbd@emptech.dk"),
+            informationContainerRow(Icons.person, "Niels Dahl"),
+            informationContainerRow(
+                Icons.phone_android_rounded, "+45 22 37 35 09"),
+            informationContainerRow(
+                Icons.house_outlined, "Falkoner Allé 65, 5 th."),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget informationContainerRow(IconData iconData, String txt) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+            child: Icon(
+              iconData,
+              color: CustomColors.foregroundColor,
+            )),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+          child: Text(
+            txt,
+            style: GoogleFonts.roboto(
+                color: CustomColors.foregroundColor, fontSize: 20),
+          ),
+        )
+      ],
+    );
+  }
+
+  toggleInformationContainer() {
+    setState(() {
+      showContainer = !showContainer;
+      print(showContainer);
+    });
   }
 }
