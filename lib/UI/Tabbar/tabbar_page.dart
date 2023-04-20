@@ -59,6 +59,7 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
                 icon: const Icon(
                   Icons.info_outline_rounded,
                   color: CustomColors.backgroundColor,
+                  size: 36,
                 ))
           ],
         ),

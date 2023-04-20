@@ -14,6 +14,7 @@ class InformationButton extends StatelessWidget {
         icon: const Icon(
           Icons.info_outline_rounded,
           color: CustomColors.backgroundColor,
+          size: 32,
         ));
   }
 }
