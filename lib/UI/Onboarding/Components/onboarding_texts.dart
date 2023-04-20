@@ -1,6 +1,11 @@
 class OnboardingTexts {
-  static const String firstStepTitle = "To Begin, Close Your Hand Gently\n";
-  static const String firstStepSubText =
-      "Using a black marker, draw dots of 3-5mm in diameter as seen above";
-  static const String firstStepSubText2 = "Do this for each finger";
+  static const String firstStepTitle = "Getting Started";
+  static const String firstStepSubText = "Find a white sheet of A4 paper and place your hand in the center";
+
+  static const String secondStepTitle = "Camera Positioning";
+  static const String secondStepSubTitle = "";
+
+  static const String thirdStepTitle = "";
+  static const String thirdStepSubTitle = "";
+
 }

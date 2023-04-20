@@ -92,18 +92,23 @@ class _CameraPageState extends State<CameraPage> {
             ),
           ),
           Positioned(
-            bottom: 120,
+            bottom: 50,
             right: 90,
             left: 90,
             child: ElevatedButton(
               style: ButtonStyle(
-                  foregroundColor: buttonColor(CustomColors.backgroundColor),
-                  backgroundColor: buttonColor(CustomColors.foregroundColor)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        side: BorderSide(color: CustomColors.foregroundColor)),
+                  ),
+                  foregroundColor: buttonColor(CustomColors.foregroundColor),
+                  backgroundColor: buttonColor(CustomColors.backgroundColor)),
               onPressed: (){
                 _onCaptureButtonPressed();
               },
               child: Text(
-                'Capture Image',
+                'Measure',
                 style: GoogleFonts.roboto(
                     fontSize: 22, fontWeight: FontWeight.w400),
               ),

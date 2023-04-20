@@ -25,14 +25,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   void initState() {
     super.initState();
-    //initializeDefault();
   }
-
-  Future<void> initializeDefault() async {
-    FirebaseService service = FirebaseService();
-    service.uploadImageToFirebase(File("assets/onboarding_picutre_1.jpg"));
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +57,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
               bottom: 32,
                 right: 32,
                 child: ElevatedButton(
-                  style: CustomTheme.buttonStylee,
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(CustomColors.foregroundColor),
+                      alignment: Alignment.center,
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),                         side: BorderSide(color: CustomColors.foregroundColor)),
+                      )),
               onPressed: () {
                 setState(() {
                   if(currentIndex<3){

@@ -18,40 +18,54 @@ class MeasurementOnboardingPage extends StatefulWidget {
 class _MeasurementOnboardingPageState extends State<MeasurementOnboardingPage> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 7),
-        child: Container(
-          decoration: const BoxDecoration(
-            color: CustomColors.backgroundColor,
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(100))),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(height: 32,),
-              const CircleAvatar(
-                  radius: 128,
-                  backgroundColor: Colors.transparent,
-                  child: Image(
-                      image: AssetImage("assets/onboarding_picture_1.jpg"))),
-              Padding(
-                padding: const EdgeInsets.only(
-                    right: 16, top: 16, bottom: 0, left: 32),
-                child: Text(
-                  OnboardingTexts.firstStepTitle,
-                  style: CustomTheme.headlineTextStyle,
-                  textAlign: TextAlign.left,
-                ),
+    return Container(
+      decoration: const BoxDecoration(color: CustomColors.backgroundColor),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Flexible(
+            flex: 2,
+            child: CircleAvatar(
+                radius: 128,
+                backgroundColor: Colors.transparent,
+                child:
+                    Image(image: AssetImage("assets/onboarding_step_1.png"))),
+          ),
+          Flexible(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  right: 16, top: 16, bottom: 0, left: 32),
+              child: Text(
+                OnboardingTexts.firstStepTitle,
+                style: CustomTheme.headlineTextStyle,
+                textAlign: TextAlign.left,
               ),
-              Padding(
+            ),
+          ),
+          Flexible(
+              flex: 2,
+              child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: Text(
                   OnboardingTexts.firstStepSubText,
                   style: CustomTheme.subTextStyle,
                   textAlign: TextAlign.left,
                 ),
-              ),
-            ],
-          ),
-        ));
+              ))
+        ],
+      ),
+    );
+  }
+
+  String fetchOnboardingHeadline(){
+    switch(widget.index){
+      case 0:
+        return OnboardingTexts.firstStepTitle;
+      case 1:
+        return OnboardingTexts.firstStepSubText;
+      case 2:
+        return OnboardingTexts.
+    }
   }
 }

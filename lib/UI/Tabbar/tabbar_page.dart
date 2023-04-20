@@ -24,7 +24,7 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
     super.initState();
     setState(() {
       _tabController = TabController(
-        initialIndex: 1,
+        initialIndex: 0,
         length: 3,
         vsync: this,
       );
@@ -66,7 +66,7 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
     return MotionTabBar(
       initialSelectedTab: "Dashboard",
       useSafeArea: true, // default: true, apply safe area wrapper
-      labels: const ["Dashboard", "Order Glove", "Profile"],
+      labels: const ["Dashboard", "Order", "Profile"],
       // Profil -> Dine egne oplysninger, Hvilke handsker er i brug, Man kan administrere sine handkser + dashboard
       // Order Glove -> Onboarding module -> Camera page -> Order received / confirmed page with result image
       // Min virksomhed?
