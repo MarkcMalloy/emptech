@@ -65,16 +65,19 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
       bottomNavigationBar: navBar(),
       body: Stack(
         children: [
-          TabBarView(
-            physics:
-                const NeverScrollableScrollPhysics(), // swipe navigation handling is not supported
-            controller: _tabController,
-            // ignore: prefer_const_literals_to_create_immutables
-            children: <Widget>[
-              const OnboardingPage(),
-              CameraPage(),
-              const OnboardingPage()
-            ],
+          GestureDetector(
+            onTap: toggleInformationContainer,
+            child: TabBarView(
+              physics:
+                  const NeverScrollableScrollPhysics(), // swipe navigation handling is not supported
+              controller: _tabController,
+              // ignore: prefer_const_literals_to_create_immutables
+              children: <Widget>[
+                const OnboardingPage(),
+                CameraPage(),
+                const OnboardingPage()
+              ],
+            ),
           ),
           informationContainer()
         ],
@@ -123,7 +126,7 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
 
   Widget informationContainer() {
     return AnimatedPositioned(
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 550),
       curve: Curves.easeInOut,
       top: showContainer ? MediaQuery.of(context).size.height / 10 : -800,
       left: 24,
