@@ -67,7 +67,11 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
       body: Stack(
         children: [
           GestureDetector(
-            onTap: toggleInformationContainer,
+            onTap: (){
+              if(showContainer){
+                toggleInformationContainer();
+              }
+            },
             child: TabBarView(
               physics:
                   const NeverScrollableScrollPhysics(), // swipe navigation handling is not supported
