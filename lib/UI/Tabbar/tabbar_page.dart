@@ -89,11 +89,11 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
     return MotionTabBar(
       initialSelectedTab: "Dashboard",
       useSafeArea: true, // default: true, apply safe area wrapper
-      labels: const ["Dashboard", "Order", "Profile"],
+      labels: const ["Dashboard", "Order", "Docs"],
       // Profil -> Dine egne oplysninger, Hvilke handsker er i brug, Man kan administrere sine handkser + dashboard
       // Order Glove -> Onboarding module -> Camera page -> Order received / confirmed page with result image
       // Min virksomhed?
-      icons: const [Icons.dashboard, Icons.camera, Icons.people_alt],
+      icons: const [Icons.dashboard, Icons.camera, Icons.edit_document],
 
       // optional badges, length must be same with labels
       badges: const [
@@ -106,7 +106,7 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
       tabSize: 50,
       tabBarHeight: 65,
       textStyle: GoogleFonts.montserrat(
-        fontSize: 18,
+        fontSize: 16,
         color: const Color(0xfffafafa),
         fontWeight: FontWeight.w500,
       ),
