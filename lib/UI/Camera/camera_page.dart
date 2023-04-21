@@ -39,13 +39,10 @@ class _CameraPageState extends State<CameraPage> {
   }
 
   Future<void> _onCaptureButtonPressed() async {
-    //late CameraController cameraController;
     //var imagePath = '../assets/niels(1).jpg';
     //var file = File(imagePath);
     try {
-      /*
-      cameraController = _cameraController;
-      if (!cameraController.value.isInitialized) {
+      if (!_cameraController.value.isInitialized) {
         return;
       }
 
@@ -54,14 +51,11 @@ class _CameraPageState extends State<CameraPage> {
         '${DateTime.now()}.png',
       );
 
-       */
-      //var img = await cameraController.takePicture();
-      setState(() {
-        //_imagePath = img.path;
-      });
+
+      var img = await _cameraController.takePicture();
 
       // Send image as HTTP POST request
-      var response = await apiService.sendImage(File(""));
+      var response = await apiService.sendImage(File(img.path));
     } catch (e) {
       print('Error capturing image: $e');
     } finally {
@@ -78,19 +72,17 @@ class _CameraPageState extends State<CameraPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_cameraController == null || !_cameraController.value.isInitialized) {
-      return Container();
-    }
-
     return Scaffold(
       body: Stack(
         children: [
-          Positioned.fill(
+          Visibility(
+            visible: _cameraController.value.isInitialized,
+            child: Positioned.fill(
             child: AspectRatio(
               aspectRatio: MediaQuery.of(context).size.aspectRatio,
               child: CameraPreview(_cameraController),
             ),
-          ),
+          ),),
           Positioned(
             bottom: 50,
             right: 90,

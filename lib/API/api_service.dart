@@ -11,9 +11,11 @@ class ApiService {
   The MultipartRequest is then sent to the Flask server using the request.send() method.
    */
     var currentDirectory = Directory.current;
-    print("CurrentDirectory: ${currentDirectory.path}");
-    imageFile = File("Niels(1).jpg");
+    print("image: ${imageFile.path}");
+    //imageFile = File("Niels(1).jpg");
     var url = 'http://127.0.0.1:5001/upload-image';
+    //var url = 'http://10.209.234.69:5001/upload-image';
+
     //var imagePath = '../assets/niels(1).jpg';
     //var file = File(imagePath);
     var request = http.MultipartRequest('POST', Uri.parse(url));
