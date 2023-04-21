@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:emptech.app.emptech/API/api_service.dart';
+import 'package:emptech.app.emptech/UI/Camera/camera_result_page.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,12 +39,12 @@ class _CameraPageState extends State<CameraPage> {
     setState(() {});
   }
 
-  Future<void> _onCaptureButtonPressed() async {
+  Future<String> onCaptureButtonPressed() async {
     //var imagePath = '../assets/niels(1).jpg';
     //var file = File(imagePath);
     try {
       if (!_cameraController.value.isInitialized) {
-        return;
+        return "";
       }
 
       final path = join(
@@ -56,9 +57,11 @@ class _CameraPageState extends State<CameraPage> {
 
       // Send image as HTTP POST request
       var response = await apiService.sendImage(File(img.path));
+      return response;
     } catch (e) {
       print('Error capturing image: $e');
     } finally {
+      return "";
       //cameraController?.dispose();
     }
   }
@@ -96,8 +99,19 @@ class _CameraPageState extends State<CameraPage> {
                   ),
                   foregroundColor: buttonColor(CustomColors.foregroundColor),
                   backgroundColor: buttonColor(CustomColors.backgroundColor)),
-              onPressed: (){
-                _onCaptureButtonPressed();
+              onPressed: () async {
+                String res = await onCaptureButtonPressed();
+                print("camera_page result: $res");
+                if(res.isNotEmpty){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CameraResultPage(
+                            imgPath: res,
+                          )
+                      )
+                  );
+                }
               },
               child: Text(
                 'Measure',

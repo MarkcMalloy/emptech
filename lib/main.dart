@@ -1,4 +1,5 @@
 import 'package:emptech.app.emptech/API/api_service.dart';
+import 'package:emptech.app.emptech/UI/Camera/camera_result_page.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:emptech.app.emptech/Utils/emptech_theme.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,10 @@ class MyApp extends StatelessWidget {
              */
           buttonTheme: CustomTheme.buttonTheme,
         ),
-        home: const TabBarPage());
+        home: const TabBarPage(),
+      routes: {
+
+      },
+    );
   }
 }
