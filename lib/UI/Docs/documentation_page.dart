@@ -1,7 +1,11 @@
+import 'dart:io';
+import 'dart:async';
+import 'package:path_provider/path_provider.dart';
+
 import 'package:emptech.app.emptech/UI/Docs/Components/pdf_viewer_page.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:flutter/material.dart';
-import 'dart:io' as io;
+import 'package:flutter/services.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,6 +25,7 @@ class PdfSearchPage extends StatefulWidget {
 }
 
 class _PdfSearchPageState extends State<PdfSearchPage> {
+  // TODO: Implement "Add customer notes" as a feedback structure that EmpTech
   List<PdfDocument> _searchResults = [];
   TextEditingController _searchController = TextEditingController();
 
@@ -28,20 +33,27 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    doesPdfExist();
+
+    setState(() {
+      _searchResults = widget.documents;
+    });
+    //doesPdfExist();
   }
 
   Future<void> doesPdfExist() async {
-    var syncPath = widget.documents.first.filename;
-
+    File file = File("assets/documents/order_glove_guide.pdf");
+    final directory = await getApplicationDocumentsDirectory();
+    var doesExist = await file.exists();
+    var filename = widget.documents.first.filename;
     // for a file
-    await io.File(syncPath).exists();
-    print(
-        "PDF ${widget.documents.first.filename} exists: ${io.File(syncPath).existsSync()}");
+    /*
+    await io.File(filename).exists();
+    print("PDF $filename exists: ${io.File(filename).existsSync()}");
 
     // for a directory
-    await io.Directory(syncPath).exists();
-    io.Directory(syncPath).existsSync();
+    await io.Directory(filename).exists();
+    io.Directory(filename).existsSync();
+     */
   }
 
   void _onSearchChanged(String searchText) {
@@ -70,29 +82,56 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
     return Scaffold(
       backgroundColor: CustomColors.backgroundColor,
       appBar: AppBar(
+        backgroundColor: Color(0xfffafafa),
         title: TextField(
           controller: _searchController,
           onChanged: _onSearchChanged,
           decoration: InputDecoration(
-            hintText: 'Search for PDF files...',
-          ),
+              hintText: 'Search for Documentation files...',
+              hintStyle: GoogleFonts.roboto(
+                  fontSize: 18,
+                  color: CustomColors.foregroundColor,
+                  fontWeight: FontWeight.w600)),
         ),
       ),
       body: ListView.builder(
         itemCount: _searchResults.length,
         itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-            leading: Icon(Icons.picture_as_pdf),
-            title: Text(
-              _searchResults[index].filename,
-              style: GoogleFonts.roboto(color: Colors.black),
+          return pdfListItem(index);
+        },
+      ),
+    );
+  }
+
+  Widget pdfListItem(int index) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+      child: Container(
+        decoration: BoxDecoration(
+            color: CustomColors.foregroundColor.withOpacity(0.6),
+            borderRadius: BorderRadius.circular(12.0)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Icon(
+              Icons.picture_as_pdf,
+              color: Color(0xfffafafafa),
+              size: 32,
             ),
-            trailing: IconButton(
-              icon: Icon(Icons.chevron_right),
+            Text(
+              _searchResults[index].filename,
+              style: GoogleFonts.roboto(
+                  //color: Color(0xfffafafa),
+                color: Color(0xfffafafafa),
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15),
+            ),
+            IconButton(
+              icon: Icon(Icons.chevron_right, color: Color(0xfffafafafa), size: 32,),
               onPressed: () => _onListItemTapped(_searchResults[index]),
             ),
-          );
-        },
+          ],
+        ),
       ),
     );
   }

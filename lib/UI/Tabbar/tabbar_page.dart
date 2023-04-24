@@ -44,6 +44,14 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    late List<PdfDocument> documents = [];
+    var doc = PdfDocument(filename: "order_glove_guide.pdf");
+    setState(() {
+      documents.add(doc);
+      documents.add(doc);
+    documents.add(doc);
+    documents.add(doc);
+    });
     return Scaffold(
       backgroundColor: const Color(0xfffafafa),
       appBar: AppBar(
@@ -76,6 +84,7 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
               }
             },
             child: TabBarView(
+
               physics:
                   const NeverScrollableScrollPhysics(), // swipe navigation handling is not supported
               controller: _tabController,
@@ -83,7 +92,7 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
               children: <Widget>[
                 const DashboardPage(),
                 CameraPage(),
-                PdfSearchPage(documents: [PdfDocument(filename: "../../assets/how_to_order_glove.pdf")],),
+                PdfSearchPage(documents: documents,),
                 const ProfilePage()
               ],
             ),
