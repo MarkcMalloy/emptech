@@ -1,3 +1,4 @@
+import 'package:emptech.app.emptech/Profile/Components/listview_item.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,16 +13,28 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePAgeState extends State<ProfilePage> {
   var nielsAvatorUrl =
       "https://media.licdn.com/dms/image/C4E03AQEqy87kjxv0Jg/profile-displayphoto-shrink_800_800/0/1581859194944?e=1687996800&v=beta&t=mWacwPHOrB_qaXhmnuqzrWpCy7QYPdyx8ozqI9LD3W4";
+
+  final List<Map<String, dynamic>> items = [
+    {'icon': Icons.settings, 'title': 'Settings'},
+    {'icon': Icons.credit_card_outlined, 'title': 'Billing Details'},
+    {'icon': Icons.manage_accounts_outlined, 'title': 'User Management'},
+    // Add more items as needed
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColors.backgroundColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: [profileAvatarWidget(), userName(), Expanded(
-          child: profileListView(),
-          flex: 3,
-        )],
+        children: [
+          profileAvatarWidget(),
+          userName(),
+          Expanded(
+            child: profileListView(),
+            flex: 2,
+          )
+        ],
       ),
     );
   }
@@ -66,10 +79,27 @@ class _ProfilePAgeState extends State<ProfilePage> {
   Widget profileListView() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 32),
-      width: MediaQuery.of(context).size.width/1.1,
-      height: MediaQuery.of(context).size.height/10,
+      width: MediaQuery.of(context).size.width / 1.1,
+      height: MediaQuery.of(context).size.height / 10,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(32.0), color: Color(0xfffafafa)),
+      child: ListView.builder(
+        itemCount: 3,
+        itemBuilder: (BuildContext context, int index) {
+          return InkWell(
+            onTap: (){
+              // Handle button press here
+              print('Button pressed for ${items[index]['title']}');
+            },
+            child:ProfileListItem(
+              icon: items[index]['icon'],
+              title: items[index]['title'],
+              onPressed: () {
+              },
+            ),
+          );
+        },
+      )
     );
   }
 }
