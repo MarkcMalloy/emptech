@@ -1,5 +1,6 @@
 import 'package:emptech.app.emptech/Profile/Components/admin_detail_row.dart';
 import 'package:emptech.app.emptech/Profile/Components/listview_item.dart';
+import 'package:emptech.app.emptech/UI/Dashboard/Components/dashboard_profile_avatar.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,7 +30,7 @@ class _ProfilePAgeState extends State<ProfilePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          profileAvatarWidget(),
+          DashboardProfileAvatar(url: nielsAvatorUrl, size: 46.0,),
           userName(),
           adminDetails(),
           Expanded(
@@ -43,21 +44,6 @@ class _ProfilePAgeState extends State<ProfilePage> {
           )
            */
         ],
-      ),
-    );
-  }
-
-  Widget profileAvatarWidget() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Center(
-        child: CircleAvatar(
-          radius: 46,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(32.0),
-            child: Image.network(nielsAvatorUrl),
-          ),
-        ),
       ),
     );
   }

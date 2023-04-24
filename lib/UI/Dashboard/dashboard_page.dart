@@ -12,6 +12,8 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  var nielsAvatorUrl =
+      "https://media.licdn.com/dms/image/C4E03AQEqy87kjxv0Jg/profile-displayphoto-shrink_800_800/0/1581859194944?e=1687996800&v=beta&t=mWacwPHOrB_qaXhmnuqzrWpCy7QYPdyx8ozqI9LD3W4";
 
   @override
   Widget build(BuildContext context) {
@@ -20,76 +22,91 @@ class _DashboardPageState extends State<DashboardPage> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: 32,),
-            /*
-            Expanded(
-              flex: 5,
-              child: Stack(
-                children: [
-                  personalDashboardProfile(),
-                  Positioned(
-                      bottom: -6,
-                      right: 96,
-                      left: 96,
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: const MaterialStatePropertyAll(
-                                CustomColors.foregroundColor),
-                            alignment: Alignment.center,
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                  side: const BorderSide(
-                                      color: CustomColors.foregroundColor)),
-                            )),
-                        child: const Text("Edit profile"),
-                        onPressed: () {},
-                      ))
-                ],
-              ),
+            const SizedBox(
+              height: 32,
             ),
-            //     padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                child: Column(
+            myGlovesContainer()
+          ],
+        ));
+  }
+
+  Widget myGlovesContainer() {
+    EdgeInsetsGeometry columnItemPadding =
+        const EdgeInsets.symmetric(vertical: 0, horizontal: 6);
+    var topStyle = GoogleFonts.montserrat(
+        fontSize: 18, color: Colors.black, fontWeight: FontWeight.w700);
+
+    var bottomStyle = GoogleFonts.roboto(
+        fontSize: 14,
+        color: Colors.grey.withOpacity(0.7),
+        fontWeight: FontWeight.w700);
+
+    return Container(
+      height: 180,
+      width: 220,
+      decoration: BoxDecoration(
+          color: const Color(0xfffafafa), borderRadius: BorderRadius.circular(24.0)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                child: DashboardProfileAvatar(
+                  url: nielsAvatorUrl,
+                  size: 22,
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                child: Wrap(
+                  direction: Axis.vertical,
                   children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        "My (company) Gloves",
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.roboto(
-                            color:
-                                CustomColors.foregroundColor.withOpacity(0.90),
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700),
-                      ),
+                    Text(
+                      "Niels D.",
+                      style: topStyle,
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6.0),
-                        color: const Color(0xfffafafa),
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: Container(),
-                          )
-                        ],
-                      ),
+                    Text(
+                      "2 Gloves",
+                      style: bottomStyle,
                     )
                   ],
                 ),
+              )
+            ],
+          ),
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: Color(0xfff0f0f0),
+                child: Icon(
+                  Icons.handshake,
+                  color: Color(0xff9ea6ac),
+                ),
               ),
-            ),
-             */
-          ],
-        ));
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 6.0),
+                child: Wrap(
+                  direction: Axis.vertical,
+                  children: [
+                    Text(
+                      "My glove",
+                      style: topStyle,
+                    ),
+                    Text(
+                      "S/N 0001",
+                      style: bottomStyle,
+                    )
+                  ],
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    );
   }
 
   Widget glovesListView() {
