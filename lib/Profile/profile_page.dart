@@ -1,3 +1,4 @@
+import 'package:emptech.app.emptech/Profile/Components/admin_detail_row.dart';
 import 'package:emptech.app.emptech/Profile/Components/listview_item.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class _ProfilePAgeState extends State<ProfilePage> {
         children: [
           profileAvatarWidget(),
           userName(),
+          adminDetails(),
           Expanded(
             child: profileListView(),
             flex: 2,
@@ -76,30 +78,66 @@ class _ProfilePAgeState extends State<ProfilePage> {
     );
   }
 
+  Widget adminDetails() {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 42, vertical: 12),
+          child: Container(
+            height: 2,
+            color: CustomColors.foregroundColor.withOpacity(0.3),
+          ),
+        ),
+        Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 42, vertical: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                AdminDetailsColumn(
+                  topText: "4",
+                  bottomText: "Gloves",
+                ),
+                AdminDetailsColumn(
+                  topText: "164hrs",
+                  bottomText: "Total usage",
+                ),
+                AdminDetailsColumn(
+                  topText: "2",
+                  bottomText: "Employees",
+                ),
+              ],
+            )),
+      ],
+    );
+  }
+
   Widget profileListView() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 32),
-      width: MediaQuery.of(context).size.width / 1.1,
-      height: MediaQuery.of(context).size.height / 10,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(32.0), color: Color(0xfffafafa)),
-      child: ListView.builder(
-        itemCount: 3,
-        itemBuilder: (BuildContext context, int index) {
-          return InkWell(
-            onTap: (){
-              // Handle button press here
-              print('Button pressed for ${items[index]['title']}');
-            },
-            child:ProfileListItem(
-              icon: items[index]['icon'],
-              title: items[index]['title'],
-              onPressed: () {
-              },
-            ),
-          );
-        },
-      )
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 32),
+        width: MediaQuery.of(context).size.width / 1.1,
+        height: MediaQuery.of(context).size.height / 10,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(32.0),
+            color: Color(0xfffafafa)),
+        child: adminProfileSettings());
+  }
+
+  Widget adminProfileSettings() {
+    return ListView.builder(
+      itemCount: 3,
+      itemBuilder: (BuildContext context, int index) {
+        return InkWell(
+          onTap: () {
+            // Handle button press here
+            print('Button pressed for ${items[index]['title']}');
+          },
+          child: ProfileListItem(
+            icon: items[index]['icon'],
+            title: items[index]['title'],
+            onPressed: () {},
+          ),
+        );
+      },
     );
   }
 }
