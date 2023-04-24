@@ -33,9 +33,15 @@ class _ProfilePAgeState extends State<ProfilePage> {
           userName(),
           adminDetails(),
           Expanded(
+            flex: 2,
             child: profileListView(),
+          )
+          /*
+          Expanded(
+            child:           profileListView(),
             flex: 2,
           )
+           */
         ],
       ),
     );
@@ -43,7 +49,7 @@ class _ProfilePAgeState extends State<ProfilePage> {
 
   Widget profileAvatarWidget() {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.symmetric(vertical: 16),
       child: Center(
         child: CircleAvatar(
           radius: 46,
@@ -92,7 +98,7 @@ class _ProfilePAgeState extends State<ProfilePage> {
             padding: const EdgeInsets.symmetric(horizontal: 42, vertical: 12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+              children: const [
                 AdminDetailsColumn(
                   topText: "4",
                   bottomText: "Gloves",
@@ -118,12 +124,18 @@ class _ProfilePAgeState extends State<ProfilePage> {
         height: MediaQuery.of(context).size.height / 10,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(32.0),
-            color: Color(0xfffafafa)),
-        child: adminProfileSettings());
+            color: const Color(0xfffafafa)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [adminProfileSettings(), logoutButton()],
+        ));
   }
+  // logoutButton
 
   Widget adminProfileSettings() {
     return ListView.builder(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
       itemCount: 3,
       itemBuilder: (BuildContext context, int index) {
         return InkWell(
@@ -139,5 +151,27 @@ class _ProfilePAgeState extends State<ProfilePage> {
         );
       },
     );
+  }
+
+  Widget logoutButton() {
+    return Align(
+        alignment: Alignment.bottomCenter,
+        child: ElevatedButton(
+            style: ButtonStyle(
+              shape: MaterialStatePropertyAll<OutlinedBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0))),
+                padding: const MaterialStatePropertyAll<EdgeInsetsGeometry>(
+                    EdgeInsets.symmetric(horizontal: 72, vertical: 12)),
+                shadowColor: const MaterialStatePropertyAll<Color>(
+                    CustomColors.foregroundColor),
+                textStyle: MaterialStatePropertyAll<TextStyle>(
+                    GoogleFonts.roboto(
+                        fontWeight: FontWeight.w600, fontSize: 16)),
+                backgroundColor: const MaterialStatePropertyAll<Color>(
+                    CustomColors.foregroundColor),
+                elevation: const MaterialStatePropertyAll<double>(8.0)),
+            onPressed: () {
+              //TODO: implement logout
+            },
+            child: const Text("Logout")));
   }
 }
