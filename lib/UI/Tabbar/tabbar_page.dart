@@ -1,5 +1,6 @@
 import 'package:emptech.app.emptech/Profile/profile_page.dart';
 import 'package:emptech.app.emptech/UI/Dashboard/dashboard_page.dart';
+import 'package:emptech.app.emptech/UI/Docs/documentation_page.dart';
 import 'package:emptech.app.emptech/UI/Onboarding/onboarding_page.dart';
 import 'package:emptech.app.emptech/UI/Tabbar/Components/tabbar_badge_icon_dashboard.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
@@ -32,6 +33,7 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
         vsync: this,
       );
     });
+
   }
 
   @override
@@ -81,7 +83,7 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
               children: <Widget>[
                 const DashboardPage(),
                 CameraPage(),
-                const OnboardingPage(),
+                PdfSearchPage(documents: [PdfDocument(filename: "../../assets/how_to_order_glove.pdf")],),
                 const ProfilePage()
               ],
             ),
