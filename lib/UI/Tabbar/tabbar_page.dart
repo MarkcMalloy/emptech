@@ -1,3 +1,4 @@
+import 'package:emptech.app.emptech/Profile/profile_page.dart';
 import 'package:emptech.app.emptech/UI/Dashboard/dashboard_page.dart';
 import 'package:emptech.app.emptech/UI/Onboarding/onboarding_page.dart';
 import 'package:emptech.app.emptech/UI/Tabbar/Components/tabbar_badge_icon_dashboard.dart';
@@ -27,7 +28,7 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
     setState(() {
       _tabController = TabController(
         initialIndex: 0,
-        length: 3,
+        length: 4,
         vsync: this,
       );
     });
@@ -54,7 +55,6 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
           children: [
             IconButton(
                 onPressed: () {
-                  toggleInformationContainer();
                 },
                 icon: const Icon(
                   Icons.info_outline_rounded,
@@ -81,7 +81,8 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
               children: <Widget>[
                 const DashboardPage(),
                 CameraPage(),
-                const OnboardingPage()
+                const OnboardingPage(),
+                const ProfilePage()
               ],
             ),
           ),
@@ -95,11 +96,11 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
     return MotionTabBar(
       initialSelectedTab: "Dashboard",
       useSafeArea: true, // default: true, apply safe area wrapper
-      labels: const ["Dashboard", "Order", "Docs"],
+      labels: const ["Dashboard", "Order", "Docs", "Profile"],
       // Profil -> Dine egne oplysninger, Hvilke handsker er i brug, Man kan administrere sine handkser + dashboard
       // Order Glove -> Onboarding module -> Camera page -> Order received / confirmed page with result image
       // Min virksomhed?
-      icons: const [Icons.dashboard, Icons.camera, Icons.edit_document],
+      icons: const [Icons.dashboard, Icons.camera, Icons.edit_document, Icons.person],
 
       // optional badges, length must be same with labels
       badges: const [

@@ -12,8 +12,6 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  var nielsAvatorUrl =
-      "https://scontent-arn2-1.xx.fbcdn.net/v/t1.6435-9/79688978_2644716808952559_25377196520505344_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=A4MktojLlZkAX8MyZ5S&_nc_ht=scontent-arn2-1.xx&oh=00_AfDX0PJyGLDBJL-83ghb3U7xnnVvHQmhmMEZY6sJlHdlXg&oe=646DA475";
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +20,10 @@ class _DashboardPageState extends State<DashboardPage> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            SizedBox(height: 32,),
+            /*
             Expanded(
-              flex: 3,
+              flex: 5,
               child: Stack(
                 children: [
                   personalDashboardProfile(),
@@ -51,7 +51,7 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
             //     padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
             Expanded(
-              flex: 2,
+              flex: 1,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
@@ -87,10 +87,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
               ),
             ),
-            Expanded(
-              flex: 2,
-              child: Container(),
-            )
+             */
           ],
         ));
   }
@@ -117,55 +114,13 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget personalDashboardProfile() {
-    return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                "My profile",
-                textAlign: TextAlign.start,
-                style: GoogleFonts.roboto(
-                    color: CustomColors.foregroundColor.withOpacity(0.95),
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6.0),
-                color: const Color(0xfffafafa),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: dashboardColumn(),
-                  )
-                ],
-              ),
-            )
-          ],
-        ));
-  }
-
   Widget dashboardColumn() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         informationContainerRow(
-            "Niels Dahl",
-            CircleAvatar(
-              radius: 14,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.network(nielsAvatorUrl),
-              ),
-            )),
+            "Niels Dahl", _iconWidget(Icons.person_2_outlined)),
         informationContainerRow(
             "nkbd@emptech.dk", _iconWidget(Icons.email_outlined)),
         informationContainerRow(
