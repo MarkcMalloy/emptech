@@ -42,52 +42,27 @@ class _DashboardPageState extends State<DashboardPage> {
         fontWeight: FontWeight.w700);
 
     return Container(
-      height: 180,
+      height: 100,
       width: 220,
       decoration: BoxDecoration(
-          color: const Color(0xfffafafa), borderRadius: BorderRadius.circular(24.0)),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(24.0)),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                child: DashboardProfileAvatar(
-                  url: nielsAvatorUrl,
-                  size: 22,
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                padding: EdgeInsets.only(left: 12),
+                child: CircleAvatar(
+                    radius: 40,
+                    backgroundColor: Colors.transparent,
+                    child:
+                        //Image(image: AssetImage("assets/onboarding_step_1.png"))),
+                        Image(image: AssetImage("assets/glove1.png"))),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                child: Wrap(
-                  direction: Axis.vertical,
-                  children: [
-                    Text(
-                      "Niels D.",
-                      style: topStyle,
-                    ),
-                    Text(
-                      "2 Gloves",
-                      style: bottomStyle,
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              CircleAvatar(
-                backgroundColor: Color(0xfff0f0f0),
-                child: Icon(
-                  Icons.handshake,
-                  color: Color(0xff9ea6ac),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 6.0),
+                padding: EdgeInsets.only(left: 6.0),
                 child: Wrap(
                   direction: Axis.vertical,
                   children: [

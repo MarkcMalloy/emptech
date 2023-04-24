@@ -16,6 +16,7 @@ class MeasurementOnboardingPage extends StatefulWidget {
 }
 
 class _MeasurementOnboardingPageState extends State<MeasurementOnboardingPage> {
+  var radius = BorderRadius.circular(12.0);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,16 +24,23 @@ class _MeasurementOnboardingPageState extends State<MeasurementOnboardingPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const Flexible(
-            flex: 2,
-            child: CircleAvatar(
+          Container(
+            height: 300,
+            width: MediaQuery.of(context).size.height,
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(36.0),
+                    bottomLeft: Radius.circular(36.0))),
+            child: const CircleAvatar(
                 radius: 128,
                 backgroundColor: Colors.transparent,
                 child:
-                    Image(image: AssetImage("assets/onboarding_step_1.png"))),
+                //Image(image: AssetImage("assets/onboarding_step_1.png"))),
+                Image(image: AssetImage("assets/glove_2.png"))),
           ),
           Flexible(
-            flex: 2,
+            flex: 1,
             child: Padding(
               padding: const EdgeInsets.only(
                   right: 16, top: 16, bottom: 0, left: 32),
@@ -44,7 +52,7 @@ class _MeasurementOnboardingPageState extends State<MeasurementOnboardingPage> {
             ),
           ),
           Flexible(
-              flex: 2,
+              flex: 1,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: Text(
@@ -58,8 +66,8 @@ class _MeasurementOnboardingPageState extends State<MeasurementOnboardingPage> {
     );
   }
 
-  String fetchOnboardingHeadline(){
-    switch(widget.index){
+  String fetchOnboardingHeadline() {
+    switch (widget.index) {
       case 0:
         return OnboardingTexts.firstStepTitle;
       case 1:

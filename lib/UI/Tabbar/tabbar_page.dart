@@ -91,7 +91,8 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
               // ignore: prefer_const_literals_to_create_immutables
               children: <Widget>[
                 const DashboardPage(),
-                CameraPage(),
+                //CameraPage(),
+                const OnboardingPage(),
                 PdfSearchPage(documents: documents,),
                 const ProfilePage()
               ],
