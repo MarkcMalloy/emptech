@@ -12,6 +12,9 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  var nielsAvatorUrl =
+      "https://scontent-arn2-1.xx.fbcdn.net/v/t1.6435-9/79688978_2644716808952559_25377196520505344_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=A4MktojLlZkAX8MyZ5S&_nc_ht=scontent-arn2-1.xx&oh=00_AfDX0PJyGLDBJL-83ghb3U7xnnVvHQmhmMEZY6sJlHdlXg&oe=646DA475";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +28,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 children: [
                   personalDashboardProfile(),
                   Positioned(
-                      bottom: 0,
+                      bottom: -6,
                       right: 96,
                       left: 96,
                       child: ElevatedButton(
@@ -126,7 +129,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 "My profile",
                 textAlign: TextAlign.start,
                 style: GoogleFonts.roboto(
-                    color: CustomColors.foregroundColor.withOpacity(0.8),
+                    color: CustomColors.foregroundColor.withOpacity(0.95),
                     fontSize: 22,
                     fontWeight: FontWeight.w700),
               ),
@@ -154,25 +157,32 @@ class _DashboardPageState extends State<DashboardPage> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        informationContainerRow(Icons.person, "Niels Dahl"),
-        informationContainerRow(Icons.email_outlined, "nkbd@emptech.dk"),
-        informationContainerRow(Icons.phone_android_rounded, "+45 22 37 35 09"),
         informationContainerRow(
-            Icons.house_outlined, "Falkoner Allé 65, 5 th."),
+            "Niels Dahl",
+            CircleAvatar(
+              radius: 14,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image.network(nielsAvatorUrl),
+              ),
+            )),
+        informationContainerRow(
+            "nkbd@emptech.dk", _iconWidget(Icons.email_outlined)),
+        informationContainerRow(
+            "+45 22 37 35 09", _iconWidget(Icons.phone_android_rounded)),
+        informationContainerRow(
+            "Falkoner Allé 65, 5 th.", _iconWidget(Icons.house_outlined)),
       ],
     );
   }
 
-  Widget informationContainerRow(IconData iconData, String txt) {
+  Widget informationContainerRow(String txt, Widget iconWidget) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-            child: Icon(
-              iconData,
-              color: CustomColors.foregroundColor,
-            )),
+            child: iconWidget),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
           child: Text(
@@ -182,6 +192,14 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
         )
       ],
+    );
+  }
+
+  Widget _iconWidget(IconData iconData) {
+    return Icon(
+      iconData,
+      color: CustomColors.foregroundColor,
+      size: 28,
     );
   }
 }

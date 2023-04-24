@@ -14,8 +14,8 @@ class ApiService {
    */
     var currentDirectory = Directory.current;
     print("image: ${imageFile.path}");
-    //var url = 'http://127.0.0.1:5001/upload-image'; // Local URL
-    var url = 'http://10.209.192.7:5001/upload-image'; // IPV4
+    var url = 'http://127.0.0.1:5001/upload-image'; // Local URL
+    //var url = 'http://10.209.192.7:5001/upload-image'; // IPV4
     var request = http.MultipartRequest('POST', Uri.parse(url));
     request.files.add(await http.MultipartFile.fromPath(
       'file',
