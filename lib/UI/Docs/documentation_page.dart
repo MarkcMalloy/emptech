@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:emptech.app.emptech/UI/Design/glass_overlay.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:emptech.app.emptech/UI/Docs/Components/pdf_viewer_page.dart';
@@ -80,25 +82,86 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CustomColors.backgroundColor,
-      appBar: AppBar(
-        backgroundColor: Color(0xfffafafa),
-        title: TextField(
-          controller: _searchController,
-          onChanged: _onSearchChanged,
-          decoration: InputDecoration(
-              hintText: 'Search for Documentation files...',
-              hintStyle: GoogleFonts.roboto(
-                  fontSize: 18,
-                  color: CustomColors.foregroundColor,
-                  fontWeight: FontWeight.w600)),
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: [
+            GlassOverlay(body: documentListView()),
+            SafeArea(
+              child: Center(
+                child: topText(),
+              ),
+            )
+          ],
+        ));
+  }
+
+  Widget documentListView() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 32),
+          width: MediaQuery.of(context).size.width / 1.1,
+          height: MediaQuery.of(context).size.height / 1.4,
+          decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                    color: CustomColors.backgroundColor.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 6)
+              ],
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(32.0),
+                  topRight: Radius.circular(32.0)),
+              color: const Color(0xfffafafa)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: _searchResults.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return pdfListItem(index);
+                },
+              ),
+              Padding(
+                child: searchTextField(),
+                padding: EdgeInsets.symmetric(vertical: 12),
+              )
+            ],
+          ),
         ),
-      ),
-      body: ListView.builder(
-        itemCount: _searchResults.length,
-        itemBuilder: (BuildContext context, int index) {
-          return pdfListItem(index);
-        },
+      ],
+    );
+  }
+  /*
+     child: ListView.builder(
+          itemCount: _searchResults.length,
+          itemBuilder: (BuildContext context, int index) {
+            return pdfListItem(index);
+          },
+        ),
+   */
+
+  Widget searchTextField() {
+    return Neumorphic(
+      style: const NeumorphicStyle(
+          shape: NeumorphicShape.concave,
+          depth: 2,
+          intensity: 0.7,
+          color: Color(0xfffafafa),
+          lightSource: LightSource.topRight),
+      child: TextField(
+        textAlign: TextAlign.center,
+        controller: _searchController,
+        onChanged: _onSearchChanged,
+        decoration: InputDecoration(
+            hintText: 'Search for Documentation files...',
+            hintStyle: GoogleFonts.roboto(
+                fontSize: 18.0,
+                color: CustomColors.foregroundColor,
+                fontWeight: FontWeight.w600)),
       ),
     );
   }
@@ -122,17 +185,52 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
               _searchResults[index].filename,
               style: GoogleFonts.roboto(
                   //color: Color(0xfffafafa),
-                color: Color(0xfffafafafa),
+                  color: Color(0xfffafafafa),
                   fontWeight: FontWeight.w700,
                   fontSize: 15),
             ),
             IconButton(
-              icon: Icon(Icons.chevron_right, color: Color(0xfffafafafa), size: 32,),
+              icon: Icon(
+                Icons.chevron_right,
+                color: Color(0xfffafafafa),
+                size: 32,
+              ),
               onPressed: () => _onListItemTapped(_searchResults[index]),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget topText() {
+    TextStyle _style1 = GoogleFonts.montserrat(
+        fontSize: 20, color: Color(0xfffafafa), fontWeight: FontWeight.w400);
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Center(
+            child: CircleAvatar(
+              backgroundColor: Color(0xfffafafa),
+              radius: 28.0,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(32.0),
+                child: Icon(
+                  Icons.document_scanner,
+                  color: CustomColors.foregroundColor,
+                  size: 42,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Text(
+          "EmpTech Documentation",
+          style: _style1,
+          textAlign: TextAlign.center,
+        )
+      ],
     );
   }
 }

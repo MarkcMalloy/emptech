@@ -40,7 +40,7 @@ class ProfileListItem extends StatelessWidget {
           IconButton(
             onPressed: onPressed,
             color: Colors.blue,
-            icon: Icon(
+            icon: const Icon(
               Icons.chevron_right_outlined,
               color: CustomColors.foregroundColor,
               size: 32,

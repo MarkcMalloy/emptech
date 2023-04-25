@@ -2,6 +2,7 @@ import 'package:emptech.app.emptech/Profile/Components/admin_detail_row.dart';
 import 'package:emptech.app.emptech/Profile/Components/listview_item.dart';
 import 'package:emptech.app.emptech/Profile/Components/neumorphic_tile.dart';
 import 'package:emptech.app.emptech/UI/Dashboard/Components/dashboard_profile_avatar.dart';
+import 'package:emptech.app.emptech/UI/Design/glass_overlay.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -32,52 +33,23 @@ class _ProfilePAgeState extends State<ProfilePage> {
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          GlassContainer(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            borderGradient: LinearGradient(
-              // Set the gradient colors and stops to achieve the desired glass effect
-              colors: [
-                CustomColors.backgroundColor.withOpacity(0.2),
-                CustomColors.backgroundColor.withOpacity(0.3)
-                /*
-                Colors.white.withOpacity(0.1),
-                Colors.white.withOpacity(0.3)
-                 */
+          GlassOverlay(
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                DashboardProfileAvatar(
+                  url: nielsAvatorUrl,
+                  size: 46.0,
+                ),
+                userName(),
+                adminDetails(),
+                Expanded(
+                  flex: 2,
+                  child: profileListView(),
+                )
               ],
-              stops: [0.3, 0.7],
             ),
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              // Set the gradient colors and stops to achieve the desired glass effect
-              colors: [
-                CustomColors.foregroundColor.withOpacity(0.3),
-                CustomColors.backgroundColor.withOpacity(0.4),
-                CustomColors.backgroundColor.withOpacity(0.5),
-                CustomColors.backgroundColor.withOpacity(0.55)
-              ],
-              stops: [0.3, 0.4, 0.55, 0.7],
-            ),
-            blur: 6, // Set the blur value to achieve the desired glass effect
-            child: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  DashboardProfileAvatar(
-                    url: nielsAvatorUrl,
-                    size: 46.0,
-                  ),
-                  userName(),
-                  adminDetails(),
-                  Expanded(
-                    flex: 2,
-                    child: profileListView(),
-                  )
-                ],
-              ),
-            ),
-          )
+          ),
         ],
       ),
     );
@@ -200,7 +172,8 @@ Column(
                     .concave, // Set the shape to concave for neumorphic design
                 depth: 2, // Set the depth of the neumorphic design
                 intensity: 0.7, // Set the intensity of the neumorphic design
-                color: Color(0xfffafafa), // Set the color of the neumorphic design
+                color:
+                    Color(0xfffafafa), // Set the color of the neumorphic design
                 lightSource: LightSource
                     .topLeft, // Set the light source of the neumorphic design
               ),
