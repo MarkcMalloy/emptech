@@ -22,9 +22,8 @@ class NeumorphicContainer extends StatelessWidget {
             lightSource: LightSource
                 .topLeft, // Set the light source of the neumorphic design
           ),
-          child: Container(
-            child: body,
-          ),
+          child: Expanded(child: Container(
+            child: body)),
         ),
       ),
     );

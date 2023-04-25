@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:emptech.app.emptech/Profile/Components/neumorphic_tile.dart';
 import 'package:emptech.app.emptech/UI/Design/glass_overlay.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:path_provider/path_provider.dart';
@@ -110,24 +111,38 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
                     spreadRadius: 2,
                     blurRadius: 6)
               ],
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(32.0),
                   topRight: Radius.circular(32.0)),
               color: const Color(0xfffafafa)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: _searchResults.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return pdfListItem(index);
-                },
+              Expanded(
+                flex: 4,
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: _searchResults.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    //return pdfListItem(index);
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 4, bottom: 4, right: 4, left: 4),
+                      child: Neumorphic(
+                          style: const NeumorphicStyle(
+                              shape: NeumorphicShape.concave,
+                              depth: 2,
+                              intensity: 0.7,
+                              color: Colors.white,
+                              lightSource: LightSource.topLeft),
+                          child: pdfListItem(index)),
+                    );
+                  },
+                ),
               ),
               Padding(
                 child: searchTextField(),
-                padding: EdgeInsets.symmetric(vertical: 12),
+                padding: const EdgeInsets.only(bottom: 20),
               )
             ],
           ),
@@ -168,31 +183,29 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
 
   Widget pdfListItem(int index) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
       child: Container(
-        decoration: BoxDecoration(
-            color: CustomColors.foregroundColor.withOpacity(0.6),
-            borderRadius: BorderRadius.circular(12.0)),
+        color: Colors.transparent,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Icon(
+            const Icon(
               Icons.picture_as_pdf,
-              color: Color(0xfffafafafa),
+              color: CustomColors.foregroundColor,
               size: 32,
             ),
             Text(
               _searchResults[index].filename,
               style: GoogleFonts.roboto(
                   //color: Color(0xfffafafa),
-                  color: Color(0xfffafafafa),
+                  color: CustomColors.foregroundColor,
                   fontWeight: FontWeight.w700,
                   fontSize: 15),
             ),
             IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.chevron_right,
-                color: Color(0xfffafafafa),
+                color: CustomColors.foregroundColor,
                 size: 32,
               ),
               onPressed: () => _onListItemTapped(_searchResults[index]),
@@ -205,18 +218,20 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
 
   Widget topText() {
     TextStyle _style1 = GoogleFonts.montserrat(
-        fontSize: 20, color: Color(0xfffafafa), fontWeight: FontWeight.w400);
+        fontSize: 20,
+        color: const Color(0xfffafafa),
+        fontWeight: FontWeight.w400);
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: Center(
             child: CircleAvatar(
-              backgroundColor: Color(0xfffafafa),
+              backgroundColor: const Color(0xfffafafa),
               radius: 28.0,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(32.0),
-                child: Icon(
+                child: const Icon(
                   Icons.document_scanner,
                   color: CustomColors.foregroundColor,
                   size: 42,
