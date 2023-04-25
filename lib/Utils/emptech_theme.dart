@@ -11,10 +11,10 @@ class CustomTheme {
 
   ///* TextStyles
   /// Headline Textstyles
-  static TextStyle headlineTextStyle = GoogleFonts.montserrat(
-      color: CustomColors.headlineColor,
+  static TextStyle headlineTextStyle = GoogleFonts.roboto(
+      color: Color(0xfffafafa),
       fontSize: 36,
-      fontWeight: FontWeight.w700);
+      fontWeight: FontWeight.w400);
 
   static TextStyle headlineTextStyle2 =
       GoogleFonts.montserrat(color: CustomColors.subTextColor, fontSize: 36);
