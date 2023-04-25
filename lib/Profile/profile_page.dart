@@ -1,8 +1,10 @@
 import 'package:emptech.app.emptech/Profile/Components/admin_detail_row.dart';
 import 'package:emptech.app.emptech/Profile/Components/listview_item.dart';
+import 'package:emptech.app.emptech/Profile/Components/neumorphic_tile.dart';
 import 'package:emptech.app.emptech/UI/Dashboard/Components/dashboard_profile_avatar.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -106,8 +108,8 @@ Column(
         fontSize: 24, color: Color(0xfffafafa), fontWeight: FontWeight.w400);
     TextStyle _style2 = GoogleFonts.montserrat(
         fontSize: 18,
-        color: Colors.grey.withOpacity(0.8),
-        fontWeight: FontWeight.w500);
+        color: Color(0xfffafafa).withOpacity(0.8),
+        fontWeight: FontWeight.w400);
 
     return Column(
       children: [
@@ -130,7 +132,7 @@ Column(
           padding: const EdgeInsets.symmetric(horizontal: 42, vertical: 12),
           child: Container(
             height: 2,
-            color: CustomColors.foregroundColor.withOpacity(0.3),
+            color: CustomColors.foregroundColor.withOpacity(0.5),
           ),
         ),
         Padding(
@@ -185,18 +187,39 @@ Column(
       shrinkWrap: true,
       itemCount: 3,
       itemBuilder: (BuildContext context, int index) {
-        return InkWell(
-          onTap: () {
-            // Handle button press here
-            print('Button pressed for ${items[index]['title']}');
-          },
-          child: ProfileListItem(
-            icon: items[index]['icon'],
-            title: items[index]['title'],
-            onPressed: () {},
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+          child: InkWell(
+            onTap: () {
+              // Handle button press here
+              print('Button pressed for ${items[index]['title']}');
+            },
+            child: Neumorphic(
+              style: const NeumorphicStyle(
+                shape: NeumorphicShape
+                    .concave, // Set the shape to concave for neumorphic design
+                depth: 2, // Set the depth of the neumorphic design
+                intensity: 0.7, // Set the intensity of the neumorphic design
+                color: Color(0xfffafafa), // Set the color of the neumorphic design
+                lightSource: LightSource
+                    .topLeft, // Set the light source of the neumorphic design
+              ),
+              child: Container(
+                height: 60,
+                child: listItem(index),
+              ),
+            ),
           ),
         );
       },
+    );
+  }
+
+  Widget listItem(int index) {
+    return ProfileListItem(
+      icon: items[index]['icon'],
+      title: items[index]['title'],
+      onPressed: () {},
     );
   }
 

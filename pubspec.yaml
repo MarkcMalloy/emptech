@@ -45,6 +45,7 @@ dependencies:
   shared_preferences: ^2.1.0
   flutter_pdfview: ^1.0.2
   glass_kit: ^2.0.1
+  flutter_neumorphic: ^3.2.0
 
 dev_dependencies:
   flutter_test:
