@@ -1,5 +1,6 @@
 import 'package:emptech.app.emptech/UI/Dashboard/Components/dashboard_profile_avatar.dart';
 import 'package:emptech.app.emptech/UI/Dashboard/Components/dashboard_profile_row.dart';
+import 'package:emptech.app.emptech/UI/Design/glass_overlay.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,14 +19,15 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: CustomColors.backgroundColor,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        backgroundColor: Colors.transparent,
+        body: Stack(
           children: [
-            const SizedBox(
-              height: 32,
+            GlassOverlay(
+              body: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [myGlovesContainer()],
+              ),
             ),
-            myGlovesContainer()
           ],
         ));
   }
@@ -45,8 +47,7 @@ class _DashboardPageState extends State<DashboardPage> {
       height: 100,
       width: 220,
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(24.0)),
+          color: Colors.white, borderRadius: BorderRadius.circular(24.0)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

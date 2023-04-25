@@ -61,13 +61,6 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
               child: Image(
                 image: AssetImage("assets/honeycomb_2.png"),
               )),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.info_outline_rounded,
-                color: CustomColors.backgroundColor,
-                size: 36,
-              )),
           GestureDetector(
             onTap: () {
               if (showContainer) {
@@ -90,7 +83,26 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
               ],
             ),
           ),
-          informationContainer()
+          informationContainer(),
+          Positioned(
+              top: 12,
+              right: 12,
+              child: SafeArea(
+                child: GestureDetector(
+                  onTap: (){
+                    toggleInformationContainer();
+                  },
+                  child: const CircleAvatar(
+                      radius: 24,
+                      backgroundColor: Color(0xfffafafa),
+                      child: Center(
+                          child: Icon(
+                        Icons.info,
+                        color: CustomColors.foregroundColor,
+                        size: 36,
+                      ))),
+                ),
+              )),
         ],
       ),
     );
@@ -131,7 +143,7 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
       tabIconSelectedSize: 26.0,
       tabSelectedColor: CustomColors.foregroundColor,
       tabIconSelectedColor: Colors.white,
-      tabBarColor: Color(0xfffafafa),
+      tabBarColor: const Color(0xfffafafa),
       onTabItemSelected: (int value) {
         setState(() {
           _tabController!.index = value;
@@ -144,7 +156,7 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 550),
       curve: Curves.easeInOut,
-      top: showContainer ? MediaQuery.of(context).size.height / 10 : -800,
+      top: showContainer ? MediaQuery.of(context).size.height / 5 : -800,
       left: 24,
       right: 24,
       child: Container(
@@ -153,14 +165,14 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.0),
             //color: CustomColors.backgroundColor,
-            color: Color(0xfffafafa),
+            color: const Color(0xfffafafa),
             border:
                 Border.all(color: CustomColors.foregroundColor, width: 4.0)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
               child: Text('Get in touch!',
                   style: GoogleFonts.roboto(
                       color: CustomColors.foregroundColor,
@@ -184,13 +196,13 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
             child: Icon(
               iconData,
               color: CustomColors.foregroundColor,
             )),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
           child: Text(
             txt,
             style: GoogleFonts.roboto(
@@ -202,9 +214,9 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
   }
 
   toggleInformationContainer() {
+    print("toggling");
     setState(() {
       showContainer = !showContainer;
-      print(showContainer);
     });
   }
 }
