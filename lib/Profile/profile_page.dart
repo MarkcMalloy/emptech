@@ -63,26 +63,22 @@ class _ProfilePAgeState extends State<ProfilePage> {
               stops: [0.3, 0.4, 0.55, 0.7],
             ),
             blur: 6, // Set the blur value to achieve the desired glass effect
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                DashboardProfileAvatar(
-                  url: nielsAvatorUrl,
-                  size: 46.0,
-                ),
-                userName(),
-                adminDetails(),
-                Expanded(
-                  flex: 2,
-                  child: profileListView(),
-                )
-                /*
-          Expanded(
-            child:           profileListView(),
-            flex: 2,
-          )
-           */
-              ],
+            child: SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  DashboardProfileAvatar(
+                    url: nielsAvatorUrl,
+                    size: 46.0,
+                  ),
+                  userName(),
+                  adminDetails(),
+                  Expanded(
+                    flex: 2,
+                    child: profileListView(),
+                  )
+                ],
+              ),
             ),
           )
         ],
@@ -173,7 +169,9 @@ Column(
         decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                  color: CustomColors.backgroundColor.withOpacity(0.5), spreadRadius: 2, blurRadius: 6)
+                  color: CustomColors.backgroundColor.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 6)
             ],
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(32.0),

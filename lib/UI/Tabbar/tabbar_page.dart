@@ -33,7 +33,6 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
         vsync: this,
       );
     });
-
   }
 
   @override
@@ -49,42 +48,28 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
     setState(() {
       documents.add(doc);
       documents.add(doc);
-    documents.add(doc);
-    documents.add(doc);
+      documents.add(doc);
+      documents.add(doc);
     });
     return Scaffold(
       backgroundColor: const Color(0xfffafafa),
-      appBar: AppBar(
-        backgroundColor: Color(0xfffafafa),
-        title: Text(
-          "EmpTech",
-          style: GoogleFonts.montserrat(fontStyle: FontStyle.normal, color: CustomColors.foregroundColor, fontWeight: FontWeight.w400),
-        ),
-        leading: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            IconButton(
-                onPressed: () {
-                },
-                icon: const Icon(
-                  Icons.info_outline_rounded,
-                  color: CustomColors.foregroundColor,
-                  size: 36,
-                ))
-          ],
-        ),
-      ),
       bottomNavigationBar: navBar(),
       body: Stack(
         children: [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.info_outline_rounded,
+                color: CustomColors.backgroundColor,
+                size: 36,
+              )),
           GestureDetector(
-            onTap: (){
-              if(showContainer){
+            onTap: () {
+              if (showContainer) {
                 toggleInformationContainer();
               }
             },
             child: TabBarView(
-
               physics:
                   const NeverScrollableScrollPhysics(), // swipe navigation handling is not supported
               controller: _tabController,
@@ -93,7 +78,9 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
                 const DashboardPage(),
                 //CameraPage(),
                 const OnboardingPage(),
-                PdfSearchPage(documents: documents,),
+                PdfSearchPage(
+                  documents: documents,
+                ),
                 const ProfilePage()
               ],
             ),
@@ -112,7 +99,12 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
       // Profil -> Dine egne oplysninger, Hvilke handsker er i brug, Man kan administrere sine handkser + dashboard
       // Order Glove -> Onboarding module -> Camera page -> Order received / confirmed page with result image
       // Min virksomhed?
-      icons: const [Icons.dashboard, Icons.camera, Icons.edit_document, Icons.person],
+      icons: const [
+        Icons.dashboard,
+        Icons.camera,
+        Icons.edit_document,
+        Icons.person
+      ],
 
       // optional badges, length must be same with labels
       badges: const [
