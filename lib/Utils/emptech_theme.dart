@@ -20,10 +20,10 @@ class CustomTheme {
       GoogleFonts.montserrat(color: CustomColors.subTextColor, fontSize: 36);
 
   /// Subtext Textstyles
-  static TextStyle subTextStyle = GoogleFonts.roboto(
-      color: CustomColors.subTextColor,
-      fontSize: 18,
-      fontWeight: FontWeight.w800);
+  static TextStyle subTextStyle = GoogleFonts.montserrat(
+      color: Color(0xfffafafa),
+      fontSize: 16,
+      fontWeight: FontWeight.w400);
 
   /// TextStyles */
 
