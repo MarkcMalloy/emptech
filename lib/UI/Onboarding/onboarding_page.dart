@@ -89,11 +89,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       controller: controller, // PageController
                       count: pages.length,
                       effect: const WormEffect(
-                          activeDotColor: CustomColors.foregroundColor)),
+                          activeDotColor: Color(0xFF9475FF))),
                   ElevatedButton(
                     style: ButtonStyle(
-                        backgroundColor: const MaterialStatePropertyAll(
-                            CustomColors.foregroundColor),
+                        backgroundColor: MaterialStatePropertyAll(
+                            Color(0xFF9475FF).withOpacity(0.8)),
                         alignment: Alignment.center,
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -145,22 +145,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
             stops: const [0.3, 0.7],
           ),
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            // Set the gradient colors and stops to achieve the desired glass effect
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
             colors: [
-              /*
-              CustomColors.foregroundColor.withOpacity(1.0),
-              CustomColors.foregroundColor.withOpacity(0.5),
-              CustomColors.foregroundColor.withOpacity(0.3),
-              CustomColors.foregroundColor.withOpacity(0.1)
-               */
-              const Color(0xff9475FF).withOpacity(0.95),
-              const Color(0xff9475FF).withOpacity(0.9),
-              const Color(0xff9475FF).withOpacity(0.2),
-              const Color(0xff9475FF).withOpacity(0.7)
+              const Color(0xFF222A33).withOpacity(0.9),
+              const Color(0xFF222A33).withOpacity(0.75),
+              const Color(0xFF222A33).withOpacity(0.65),
+              const Color(0xFF222A33).withOpacity(0.8),
             ],
-            stops: const [0, 0.2, 0.5, 0.7],
+            stops: const [0.3, 0.4, 0.55, 0.7],
           ),
           blur: 4, //
           child: Column(
