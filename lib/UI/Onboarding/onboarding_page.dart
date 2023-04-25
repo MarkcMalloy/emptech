@@ -57,39 +57,68 @@ class _OnboardingPageState extends State<OnboardingPage> {
         Positioned(
             bottom: 42,
             left: 22,
-            child: SmoothPageIndicator(
-                controller: controller, // PageController
-                count: pages.length,
-                effect: const WormEffect(
-                    activeDotColor: CustomColors.foregroundColor))),
-        Positioned(
-            bottom: 32,
-            right: 32,
-            child: ElevatedButton(
-              style: ButtonStyle(
-                  backgroundColor: const MaterialStatePropertyAll(
-                      CustomColors.foregroundColor),
-                  alignment: Alignment.center,
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        side: const BorderSide(
-                            color: CustomColors.foregroundColor)),
-                  )),
-              onPressed: () {
-                setState(() {
-                  if (currentIndex < 3) {
-                    currentIndex = currentIndex + 1;
-                  }
-                  controller.jumpToPage(currentIndex);
-                });
-              },
-              child: Text(
-                "Next Step",
-                style: GoogleFonts.montserrat(
-                    fontWeight: FontWeight.w600, fontSize: 18),
+            right: 22,
+            child: GlassContainer(
+              padding: EdgeInsets.symmetric(horizontal: 22),
+              height: 60,
+              borderRadius: BorderRadius.circular(16.0),
+              width: MediaQuery.of(context).size.width - 44,
+              borderGradient: LinearGradient(
+                colors: [
+                  const Color(0xFF222A33).withOpacity(0.5),
+                  const Color(0xFF222A33).withOpacity(0.3),
+                ],
+                stops: const [0.3, 0.7],
               ),
-            ))
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  const Color(0xFF222A33).withOpacity(0.8),
+                  const Color(0xFF222A33).withOpacity(0.5),
+                  const Color(0xFF222A33).withOpacity(0.5),
+                  const Color(0xFF222A33).withOpacity(0.4),
+                ],
+                stops: const [0.3, 0.4, 0.55, 0.7],
+              ),
+              blur: 6,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SmoothPageIndicator(
+                      controller: controller, // PageController
+                      count: pages.length,
+                      effect: const WormEffect(
+                          activeDotColor: CustomColors.foregroundColor)),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: const MaterialStatePropertyAll(
+                            CustomColors.foregroundColor),
+                        alignment: Alignment.center,
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              side: const BorderSide(
+                                  color: CustomColors.foregroundColor)),
+                        )),
+                    onPressed: () {
+                      setState(() {
+                        if (currentIndex < 3) {
+                          currentIndex = currentIndex + 1;
+                        }
+                        controller.jumpToPage(currentIndex);
+                      });
+                    },
+                    child: Text(
+                      "Next Step",
+                      style: GoogleFonts.montserrat(
+                          fontWeight: FontWeight.w600, fontSize: 18),
+                    ),
+                  )
+                ],
+              ),
+            )),
       ],
     );
   }
@@ -113,7 +142,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 Colors.white.withOpacity(0.3)
                  */
             ],
-            stops: [0.3, 0.7],
+            stops: const [0.3, 0.7],
           ),
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -126,19 +155,19 @@ class _OnboardingPageState extends State<OnboardingPage> {
               CustomColors.foregroundColor.withOpacity(0.3),
               CustomColors.foregroundColor.withOpacity(0.1)
                */
-              Color(0xff9475FF).withOpacity(0.95),
-              Color(0xff9475FF).withOpacity(0.9),
-              Color(0xff9475FF).withOpacity(0.2),
-              Color(0xff9475FF).withOpacity(0.7)
+              const Color(0xff9475FF).withOpacity(0.95),
+              const Color(0xff9475FF).withOpacity(0.9),
+              const Color(0xff9475FF).withOpacity(0.2),
+              const Color(0xff9475FF).withOpacity(0.7)
             ],
-            stops: [0, 0.2, 0.5, 0.7],
+            stops: const [0, 0.2, 0.5, 0.7],
           ),
           blur: 4, //
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 4, left: 12, right: 12),
+                padding: const EdgeInsets.only(top: 4, left: 12, right: 12),
                 child: Text(
                   OnboardingTexts.firstStepTitle,
                   style: CustomTheme.headlineTextStyle,
@@ -146,7 +175,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 12, left: 12, right: 12),
+                padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
                 child: Text(
                   OnboardingTexts.firstStepSubText,
                   style: CustomTheme.subTextStyle,
@@ -154,7 +183,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 24, left: 12, right: 12),
+                padding: const EdgeInsets.only(top: 24, left: 12, right: 12),
                 child: Text(
                   OnboardingTexts.firstStepSubText2,
                   style: CustomTheme.subTextStyle,
@@ -180,7 +209,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 Colors.white.withOpacity(0.3)
                  */
         ],
-        stops: [0.3, 0.7],
+        stops: const [0.3, 0.7],
       ),
       gradient: LinearGradient(
         begin: Alignment.topCenter,
@@ -192,7 +221,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           CustomColors.backgroundColor.withOpacity(0.3),
           CustomColors.backgroundColor.withOpacity(0.2)
         ],
-        stops: [0, 0.3, 0.6, 0.9],
+        stops: const [0, 0.3, 0.6, 0.9],
       ),
       blur: 6, // Set the blur value to achieve the desired glass effect
       child: SafeArea(child: body),
