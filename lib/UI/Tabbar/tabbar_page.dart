@@ -56,6 +56,11 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
       bottomNavigationBar: navBar(),
       body: Stack(
         children: [
+          const Positioned(
+              top: 0,
+              child: Image(
+                image: AssetImage("assets/honeycomb_2.png"),
+              )),
           IconButton(
               onPressed: () {},
               icon: const Icon(

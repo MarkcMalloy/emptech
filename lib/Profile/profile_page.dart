@@ -27,14 +27,9 @@ class _ProfilePAgeState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CustomColors.backgroundColor,
+      backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          const Positioned(
-              top: 0,
-              child: Image(
-                image: AssetImage("assets/honeycomb_2.png"),
-              )),
           GlassContainer(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
