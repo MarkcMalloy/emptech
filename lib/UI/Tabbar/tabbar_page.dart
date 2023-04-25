@@ -55,10 +55,10 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: const Color(0xfffafafa),
       appBar: AppBar(
-        backgroundColor: CustomColors.foregroundColor,
+        backgroundColor: Color(0xfffafafa),
         title: Text(
           "EmpTech",
-          style: GoogleFonts.montserrat(fontStyle: FontStyle.italic),
+          style: GoogleFonts.montserrat(fontStyle: FontStyle.normal, color: CustomColors.foregroundColor, fontWeight: FontWeight.w400),
         ),
         leading: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -68,7 +68,7 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
                 },
                 icon: const Icon(
                   Icons.info_outline_rounded,
-                  color: CustomColors.backgroundColor,
+                  color: CustomColors.foregroundColor,
                   size: 36,
                 ))
           ],
@@ -126,15 +126,15 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
       tabBarHeight: 65,
       textStyle: GoogleFonts.montserrat(
         fontSize: 16,
-        color: const Color(0xfffafafa),
+        color: CustomColors.foregroundColor,
         fontWeight: FontWeight.w500,
       ),
-      tabIconColor: CustomColors.iconColor,
+      tabIconColor: CustomColors.foregroundColor,
       tabIconSize: 28.0,
       tabIconSelectedSize: 26.0,
-      tabSelectedColor: CustomColors.backgroundColor.withOpacity(0.4),
+      tabSelectedColor: CustomColors.foregroundColor,
       tabIconSelectedColor: Colors.white,
-      tabBarColor: CustomColors.foregroundColor,
+      tabBarColor: Color(0xfffafafa),
       onTabItemSelected: (int value) {
         setState(() {
           _tabController!.index = value;

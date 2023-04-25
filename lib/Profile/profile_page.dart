@@ -3,6 +3,7 @@ import 'package:emptech.app.emptech/Profile/Components/listview_item.dart';
 import 'package:emptech.app.emptech/UI/Dashboard/Components/dashboard_profile_avatar.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -27,34 +28,95 @@ class _ProfilePAgeState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColors.backgroundColor,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+      body: Stack(
         children: [
-          DashboardProfileAvatar(url: nielsAvatorUrl, size: 46.0,),
-          userName(),
-          adminDetails(),
-          Expanded(
-            flex: 2,
-            child: profileListView(),
-          )
-          /*
+          const Positioned(
+              top: 0,
+              child: Image(
+                image: AssetImage("assets/honeycomb_2.png"),
+              )),
+          GlassContainer(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            borderGradient: LinearGradient(
+              // Set the gradient colors and stops to achieve the desired glass effect
+              colors: [
+                CustomColors.backgroundColor.withOpacity(0.2),
+                CustomColors.backgroundColor.withOpacity(0.3)
+                /*
+                Colors.white.withOpacity(0.1),
+                Colors.white.withOpacity(0.3)
+                 */
+              ],
+              stops: [0.3, 0.7],
+            ),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              // Set the gradient colors and stops to achieve the desired glass effect
+              colors: [
+                CustomColors.foregroundColor.withOpacity(0.3),
+                CustomColors.backgroundColor.withOpacity(0.4),
+                CustomColors.backgroundColor.withOpacity(0.5),
+                CustomColors.backgroundColor.withOpacity(0.55)
+              ],
+              stops: [0.3, 0.4, 0.55, 0.7],
+            ),
+            blur: 6, // Set the blur value to achieve the desired glass effect
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                DashboardProfileAvatar(
+                  url: nielsAvatorUrl,
+                  size: 46.0,
+                ),
+                userName(),
+                adminDetails(),
+                Expanded(
+                  flex: 2,
+                  child: profileListView(),
+                )
+                /*
           Expanded(
             child:           profileListView(),
             flex: 2,
           )
            */
+              ],
+            ),
+          )
         ],
       ),
     );
   }
 
+/*
+Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            DashboardProfileAvatar(url: nielsAvatorUrl, size: 46.0,),
+            userName(),
+            adminDetails(),
+            Expanded(
+              flex: 2,
+              child: profileListView(),
+            )
+            /*
+          Expanded(
+            child:           profileListView(),
+            flex: 2,
+          )
+           */
+          ],
+        ),
+ */
   Widget userName() {
     TextStyle _style1 = GoogleFonts.montserrat(
-        fontSize: 18, color: Colors.black, fontWeight: FontWeight.w600);
+        fontSize: 24, color: Color(0xfffafafa), fontWeight: FontWeight.w400);
     TextStyle _style2 = GoogleFonts.montserrat(
-        fontSize: 16,
+        fontSize: 18,
         color: Colors.grey.withOpacity(0.8),
-        fontWeight: FontWeight.w600);
+        fontWeight: FontWeight.w500);
 
     return Column(
       children: [
@@ -109,7 +171,13 @@ class _ProfilePAgeState extends State<ProfilePage> {
         width: MediaQuery.of(context).size.width / 1.1,
         height: MediaQuery.of(context).size.height / 10,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(32.0),
+            boxShadow: [
+              BoxShadow(
+                  color: CustomColors.backgroundColor.withOpacity(0.5), spreadRadius: 2, blurRadius: 6)
+            ],
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(32.0),
+                topRight: Radius.circular(32.0)),
             color: const Color(0xfffafafa)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -144,7 +212,9 @@ class _ProfilePAgeState extends State<ProfilePage> {
         alignment: Alignment.bottomCenter,
         child: ElevatedButton(
             style: ButtonStyle(
-              shape: MaterialStatePropertyAll<OutlinedBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0))),
+                shape: MaterialStatePropertyAll<OutlinedBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0))),
                 padding: const MaterialStatePropertyAll<EdgeInsetsGeometry>(
                     EdgeInsets.symmetric(horizontal: 72, vertical: 12)),
                 shadowColor: const MaterialStatePropertyAll<Color>(
