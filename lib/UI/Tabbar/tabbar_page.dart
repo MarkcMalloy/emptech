@@ -28,7 +28,7 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
     super.initState();
     setState(() {
       _tabController = TabController(
-        initialIndex: 0,
+        initialIndex: 1,
         length: 4,
         vsync: this,
       );

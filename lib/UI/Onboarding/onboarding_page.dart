@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:emptech.app.emptech/UI/Camera/camera_page.dart';
 import 'package:emptech.app.emptech/UI/Design/glass_overlay.dart';
 import 'package:emptech.app.emptech/UI/Onboarding/Components/onboarding_texts.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:neumorphic_button/neumorphic_button.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'onboarding_measurement.dart';
@@ -55,77 +57,79 @@ class _OnboardingPageState extends State<OnboardingPage> {
         ),
         onboardingGlassyText(),
         Positioned(
-            bottom: 42,
-            left: 22,
-            right: 22,
-            child: GlassContainer(
-              padding: EdgeInsets.symmetric(horizontal: 22),
-              height: 60,
-              borderRadius: BorderRadius.circular(16.0),
-              width: MediaQuery.of(context).size.width - 44,
-              borderGradient: LinearGradient(
-                colors: [
-                  const Color(0xFF222A33).withOpacity(0.5),
-                  const Color(0xFF222A33).withOpacity(0.3),
-                ],
-                stops: const [0.3, 0.7],
-              ),
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  const Color(0xFF222A33).withOpacity(0.8),
-                  const Color(0xFF222A33).withOpacity(0.5),
-                  const Color(0xFF222A33).withOpacity(0.5),
-                  const Color(0xFF222A33).withOpacity(0.4),
-                ],
-                stops: const [0.3, 0.4, 0.55, 0.7],
-              ),
-              blur: 6,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SmoothPageIndicator(
-                      controller: controller, // PageController
-                      count: pages.length,
-                      effect: const WormEffect(
-                          activeDotColor: Color(0xFF9475FF))),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
-                            Color(0xFF9475FF).withOpacity(0.8)),
-                        alignment: Alignment.center,
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              side: const BorderSide(
-                                  color: CustomColors.foregroundColor)),
-                        )),
-                    onPressed: () {
-                      setState(() {
-                        if (currentIndex < 3) {
-                          currentIndex = currentIndex + 1;
-                        }
-                        controller.jumpToPage(currentIndex);
-                      });
-                    },
-                    child: Text(
-                      "Next Step",
-                      style: GoogleFonts.montserrat(
-                          fontWeight: FontWeight.w600, fontSize: 18),
-                    ),
-                  )
-                ],
-              ),
-            )),
+            bottom: 42, left: 22, right: 22, child: onboardingBottomRow(pages)),
       ],
     );
   }
 
+  Widget onboardingBottomRow(List<MeasurementOnboardingPage> pages) {
+    return Container(
+      padding: EdgeInsets.all(6.0),
+      decoration: BoxDecoration(
+          color: Color(0xfffafafa), borderRadius: BorderRadius.circular(16.0)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(2),
+            child: SmoothPageIndicator(
+                controller: controller, // PageController
+                count: pages.length,
+                effect: const WormEffect(activeDotColor: Color(0xFF9475FF))),
+          ),
+          NeumorphicButton(
+              padding: EdgeInsets.all(2),
+              backgroundColor: Color(0xfffafafa),
+              onTap: () {
+                setState(() {
+                  if (currentIndex < 3) {
+                    currentIndex = currentIndex + 1;
+                    controller.jumpToPage(currentIndex);
+                  }
+                  else if(currentIndex == 3){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CameraPage()),
+                    );
+                  }
+
+                });
+              },
+              width: 100,
+              height: 40,
+              topLeftShadowColor: Colors.grey.withOpacity(0.4),
+              bottomRightShadowColor: Colors.grey.withOpacity(0.4),
+              child: Center(
+                child: Text(
+                  "Next Step",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.montserrat(
+                      color: CustomColors.foregroundColor,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16),
+                ),
+              ))
+        ],
+      ),
+    );
+  }
+  /*
+  style: Buttonstyle(
+                backgroundColor: MaterialStatePropertyAll(
+                    Color(0xFF9475FF).withOpacity(0.8)),
+                alignment: Alignment.center,
+                shape:
+                MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      side: const BorderSide(
+                          color: CustomColors.foregroundColor)),
+                )),
+   */
+
   Widget onboardingGlassyText() {
     return Positioned(
-        top: MediaQuery.of(context).size.height / 2.5,
+        top: MediaQuery.of(context).size.height / 3,
         child: Center(
             child: GlassContainer(
           borderRadius: BorderRadius.circular(42.0),
@@ -148,14 +152,20 @@ class _OnboardingPageState extends State<OnboardingPage> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
+              Color(0xFFe0e0e0).withOpacity(0.2),
+              Color(0xFFe0e0e0).withOpacity(0.2),
+              Color(0xFFe0e0e0).withOpacity(0.2),
+              Color(0xFFe0e0e0).withOpacity(0.2),
+              /*
               const Color(0xFF222A33).withOpacity(0.9),
               const Color(0xFF222A33).withOpacity(0.75),
               const Color(0xFF222A33).withOpacity(0.65),
               const Color(0xFF222A33).withOpacity(0.8),
+               */
             ],
             stops: const [0.3, 0.4, 0.55, 0.7],
           ),
-          blur: 4, //
+          blur: 3, //
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -172,7 +182,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 child: Text(
                   OnboardingTexts.firstStepSubText,
                   style: CustomTheme.subTextStyle,
-                  textAlign: TextAlign.left,
+                  textAlign: TextAlign.center,
                 ),
               ),
               Padding(
@@ -180,7 +190,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 child: Text(
                   OnboardingTexts.firstStepSubText2,
                   style: CustomTheme.subTextStyle,
-                  textAlign: TextAlign.left,
+                  textAlign: TextAlign.center,
                 ),
               )
             ],
@@ -218,6 +228,35 @@ class _OnboardingPageState extends State<OnboardingPage> {
       ),
       blur: 6, // Set the blur value to achieve the desired glass effect
       child: SafeArea(child: body),
+    );
+  }
+
+  Widget onboardingGlassyRow() {
+    return GlassContainer(
+      padding: EdgeInsets.symmetric(horizontal: 22),
+      height: 60,
+      borderRadius: BorderRadius.circular(16.0),
+      width: MediaQuery.of(context).size.width - 44,
+      borderGradient: LinearGradient(
+        colors: [
+          const Color(0xFF222A33).withOpacity(0.5),
+          const Color(0xFF222A33).withOpacity(0.3),
+        ],
+        stops: const [0.3, 0.7],
+      ),
+      gradient: LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          const Color(0xFF222A33).withOpacity(0.8),
+          const Color(0xFF222A33).withOpacity(0.5),
+          const Color(0xFF222A33).withOpacity(0.5),
+          const Color(0xFF222A33).withOpacity(0.4),
+        ],
+        stops: const [0.3, 0.4, 0.55, 0.7],
+      ),
+      blur: 6,
+      //child: onboardingBottomRow(),
     );
   }
 }

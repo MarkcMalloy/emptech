@@ -31,7 +31,7 @@ class _MeasurementOnboardingPageState extends State<MeasurementOnboardingPage> {
           Stack(
             children: [
               Container(
-                  height: MediaQuery.of(context).size.height / 2.2,
+                  height: MediaQuery.of(context).size.height / 4,
                   width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(
                       color: Colors.white,

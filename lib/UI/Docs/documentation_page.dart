@@ -83,57 +83,86 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
-            GlassOverlay(body: documentListView()),
-            SafeArea(
-              child: Center(
-                child: topText(),
-              ),
+            GlassOverlay(body: Container()),
+            Positioned(top: 20, right: 12, left: 12, child: topText()),
+            Positioned(
+              child: documentListView(),
+              right: 6,
+              left: 6,
+              bottom: 0,
             )
           ],
         ));
   }
 
   Widget documentListView() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 32),
-          width: MediaQuery.of(context).size.width / 1.1,
-          height: MediaQuery.of(context).size.height / 1.4,
-          decoration: BoxDecoration(
+    final bottom = MediaQuery.of(context).viewInsets.bottom;
+    return SingleChildScrollView(
+      padding: EdgeInsets.only(bottom: bottom),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 32),
+            width: MediaQuery.of(context).size.width / 1.1,
+            height: MediaQuery.of(context).size.height / 1.4,
+            decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                    color: CustomColors.backgroundColor.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 6)
+                  color: CustomColors.backgroundColor.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 6,
+                ),
               ],
               borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(32.0),
-                  topRight: Radius.circular(32.0)),
-              color: const Color(0xfffafafa)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                flex: 4,
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: _searchResults.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    //return pdfListItem(index);
-                    return Padding(
+                topLeft: Radius.circular(32.0),
+                topRight: Radius.circular(32.0),
+              ),
+              color: const Color(0xfffafafa),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                searchTextField(),
+                Container(
+                  height: 2,
+                  decoration: BoxDecoration(
+                    color: CustomColors.foregroundColor,
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: _searchResults.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
                         padding: const EdgeInsets.only(
                             top: 8, bottom: 4, right: 4, left: 4),
                         child: ClayContainer(
                           borderRadius: 12.0,
                           child: pdfListItem(index),
-                        )
-                        /*
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /*
+
+  /*
                         Neumorphic(
                           style: const NeumorphicStyle(
                               shape: NeumorphicShape.concave,
@@ -143,21 +172,6 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
                               lightSource: LightSource.topLeft),
                           child: pdfListItem(index)),
                          */
-                        );
-                  },
-                ),
-              ),
-              Padding(
-                child: searchTextField(),
-                padding: const EdgeInsets.only(bottom: 20),
-              )
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-  /*
      child: ListView.builder(
           itemCount: _searchResults.length,
           itemBuilder: (BuildContext context, int index) {
@@ -237,7 +251,7 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
+          padding: const EdgeInsets.only(top: 12, bottom: 6),
           child: Center(
             child: CircleAvatar(
               backgroundColor: const Color(0xfffafafa),

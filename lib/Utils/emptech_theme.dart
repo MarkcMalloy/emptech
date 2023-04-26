@@ -11,20 +11,17 @@ class CustomTheme {
 
   ///* TextStyles
   /// Headline Textstyles
-  static TextStyle headlineTextStyle = GoogleFonts.roboto(
-      color: Color(0xfffafafa),
-      fontSize: 36,
-      fontWeight: FontWeight.w400);
+  static TextStyle headlineTextStyle = GoogleFonts.montserrat(
+      color: Color(0xfffafafa), fontSize: 36, fontWeight: FontWeight.w500);
 
   static TextStyle headlineTextStyle2 =
-      GoogleFonts.montserrat(color: CustomColors.subTextColor, fontSize: 36);
+      GoogleFonts.montserrat(color: Color(0xfffafafa), fontSize: 36);
 
   /// Subtext Textstyles
   static TextStyle subTextStyle = GoogleFonts.montserrat(
       color: Color(0xfffafafa),
       fontSize: 16,
-      fontWeight: FontWeight.w400);
+      fontWeight: FontWeight.w500);
 
   /// TextStyles */
-
 }
