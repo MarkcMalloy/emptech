@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+//import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class NeumorphicContainer extends StatelessWidget {
   final Widget body;
@@ -12,7 +12,9 @@ class NeumorphicContainer extends StatelessWidget {
       backgroundColor:
           const Color(0xFFFAFAFA), // Set the background color to #fffafafa
       body: Center(
-        child: Neumorphic(
+        child: Container(),
+        /*
+        Neumorphic(
           style: const NeumorphicStyle(
             shape: NeumorphicShape
                 .concave, // Set the shape to concave for neumorphic design
@@ -24,7 +26,8 @@ class NeumorphicContainer extends StatelessWidget {
           ),
           child: Expanded(child: Container(
             child: body)),
-        ),
+        )
+         */
       ),
     );
   }

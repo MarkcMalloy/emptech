@@ -16,7 +16,7 @@ class ProfileListItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Row(
         children: [
-          Container(
+          Expanded(flex: 1, child: Container(
             padding: const EdgeInsets.all(6.0),
             decoration: BoxDecoration(
                 color: CustomColors.foregroundColor.withOpacity(0.3),
@@ -26,9 +26,10 @@ class ProfileListItem extends StatelessWidget {
               size: 24.0,
               color: CustomColors.foregroundColor,
             ),
-          ),
+          )),
           const SizedBox(width: 16.0),
           Expanded(
+            flex: 4,
             child: Text(
               title,
               style: GoogleFonts.roboto(
@@ -37,7 +38,7 @@ class ProfileListItem extends StatelessWidget {
                   fontWeight: FontWeight.w600),
             ),
           ),
-          IconButton(
+          Expanded(flex: 1, child: IconButton(
             onPressed: onPressed,
             color: Colors.blue,
             icon: const Icon(
@@ -45,7 +46,7 @@ class ProfileListItem extends StatelessWidget {
               color: CustomColors.foregroundColor,
               size: 32,
             ),
-          ),
+          )),
         ],
       ),
     );

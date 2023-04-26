@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'dart:async';
-import 'package:emptech.app.emptech/Profile/Components/neumorphic_tile.dart';
+import 'package:clay_containers/clay_containers.dart';
 import 'package:emptech.app.emptech/UI/Design/glass_overlay.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+//import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:emptech.app.emptech/UI/Docs/Components/pdf_viewer_page.dart';
@@ -127,8 +127,14 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
                   itemBuilder: (BuildContext context, int index) {
                     //return pdfListItem(index);
                     return Padding(
-                      padding: const EdgeInsets.only(top: 4, bottom: 4, right: 4, left: 4),
-                      child: Neumorphic(
+                        padding: const EdgeInsets.only(
+                            top: 8, bottom: 4, right: 4, left: 4),
+                        child: ClayContainer(
+                          borderRadius: 12.0,
+                          child: pdfListItem(index),
+                        )
+                        /*
+                        Neumorphic(
                           style: const NeumorphicStyle(
                               shape: NeumorphicShape.concave,
                               depth: 2,
@@ -136,7 +142,8 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
                               color: Colors.white,
                               lightSource: LightSource.topLeft),
                           child: pdfListItem(index)),
-                    );
+                         */
+                        );
                   },
                 ),
               ),
@@ -160,25 +167,31 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
    */
 
   Widget searchTextField() {
-    return Neumorphic(
+    return ClayContainer(
+        borderRadius: 12.0,
+        child: TextField(
+            textAlign: TextAlign.center,
+            controller: _searchController,
+            onChanged: _onSearchChanged,
+            decoration: InputDecoration(
+              hintText: 'Search for Documentation files...',
+              hintStyle: GoogleFonts.roboto(
+                  fontSize: 18.0,
+                  color: CustomColors.foregroundColor,
+                  fontWeight: FontWeight.w600),
+            )));
+    /*
+    Neumorphic(
       style: const NeumorphicStyle(
           shape: NeumorphicShape.concave,
           depth: 2,
           intensity: 0.7,
           color: Color(0xfffafafa),
           lightSource: LightSource.topRight),
-      child: TextField(
-        textAlign: TextAlign.center,
-        controller: _searchController,
-        onChanged: _onSearchChanged,
-        decoration: InputDecoration(
-            hintText: 'Search for Documentation files...',
-            hintStyle: GoogleFonts.roboto(
-                fontSize: 18.0,
-                color: CustomColors.foregroundColor,
-                fontWeight: FontWeight.w600)),
+      child: ),
       ),
-    );
+    )
+     */
   }
 
   Widget pdfListItem(int index) {

@@ -1,12 +1,11 @@
+import 'package:clay_containers/clay_containers.dart';
 import 'package:emptech.app.emptech/Profile/Components/admin_detail_row.dart';
 import 'package:emptech.app.emptech/Profile/Components/listview_item.dart';
-import 'package:emptech.app.emptech/Profile/Components/neumorphic_tile.dart';
 import 'package:emptech.app.emptech/UI/Dashboard/Components/dashboard_profile_avatar.dart';
 import 'package:emptech.app.emptech/UI/Design/glass_overlay.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:glass_kit/glass_kit.dart';
+//import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -132,7 +131,7 @@ Column(
 
   Widget profileListView() {
     return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 32),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         width: MediaQuery.of(context).size.width / 1.1,
         height: MediaQuery.of(context).size.height / 10,
         decoration: BoxDecoration(
@@ -147,8 +146,17 @@ Column(
                 topRight: Radius.circular(32.0)),
             color: const Color(0xfffafafa)),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [adminProfileSettings(), logoutButton()],
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(
+              child: adminProfileSettings(),
+              flex: 5,
+            ),
+            Expanded(
+              child: logoutButton(),
+              flex: 1,
+            )
+          ],
         ));
   }
   // logoutButton
@@ -160,29 +168,17 @@ Column(
       itemCount: 3,
       itemBuilder: (BuildContext context, int index) {
         return Padding(
-          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
           child: InkWell(
-            onTap: () {
-              // Handle button press here
-              print('Button pressed for ${items[index]['title']}');
-            },
-            child: Neumorphic(
-              style: const NeumorphicStyle(
-                shape: NeumorphicShape
-                    .concave, // Set the shape to concave for neumorphic design
-                depth: 2, // Set the depth of the neumorphic design
-                intensity: 0.7, // Set the intensity of the neumorphic design
-                color:
-                    Color(0xfffafafa), // Set the color of the neumorphic design
-                lightSource: LightSource
-                    .topLeft, // Set the light source of the neumorphic design
-              ),
-              child: Container(
+              onTap: () {
+                // Handle button press here
+                print('Button pressed for ${items[index]['title']}');
+              },
+              child: ClayContainer(
+                borderRadius: 12.0,
                 height: 60,
                 child: listItem(index),
-              ),
-            ),
-          ),
+              )),
         );
       },
     );

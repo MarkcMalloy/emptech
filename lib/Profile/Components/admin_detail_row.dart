@@ -11,7 +11,7 @@ class AdminDetailsColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     TextStyle topTextStyle = GoogleFonts.roboto(
         color: CustomColors.backgroundColor,
-        fontSize: 42,
+        fontSize: 36,
         fontWeight: FontWeight.w300);
     TextStyle bottomTextStyle =
         GoogleFonts.montserrat(color: CustomColors.backgroundColor, fontWeight: FontWeight.w400, fontSize: 17);
