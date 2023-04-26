@@ -1,8 +1,10 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:emptech.app.emptech/Profile/Components/admin_detail_row.dart';
 import 'package:emptech.app.emptech/Profile/Components/listview_item.dart';
+import 'package:emptech.app.emptech/Profile/profile_details_page.dart';
 import 'package:emptech.app.emptech/UI/Dashboard/Components/dashboard_profile_avatar.dart';
 import 'package:emptech.app.emptech/UI/Design/glass_overlay.dart';
+import 'package:emptech.app.emptech/UI/Login/login_page.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -173,6 +175,10 @@ Column(
               onTap: () {
                 // Handle button press here
                 print('Button pressed for ${items[index]['title']}');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileDetailsPage()),
+                );
               },
               child: ClayContainer(
                 borderRadius: 12.0,
@@ -212,6 +218,7 @@ Column(
                 elevation: const MaterialStatePropertyAll<double>(8.0)),
             onPressed: () {
               //TODO: implement logout
+              Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
             },
             child: const Text("Logout")));
   }
