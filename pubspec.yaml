@@ -46,6 +46,9 @@ dependencies:
   flutter_pdfview: ^1.0.2
   glass_kit: ^2.0.1
   flutter_neumorphic: ^3.2.0
+  font_awesome_flutter: any
+  oauth2: ^2.0.1
+  webview_flutter: ^4.2.0
 
 dev_dependencies:
   flutter_test:

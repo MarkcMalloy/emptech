@@ -1,8 +1,10 @@
+import 'package:emptech.app.emptech/UI/Dashboard/Components/concave_curve_container.dart';
 import 'package:emptech.app.emptech/UI/Dashboard/Components/dashboard_profile_avatar.dart';
 import 'package:emptech.app.emptech/UI/Dashboard/Components/dashboard_profile_row.dart';
 import 'package:emptech.app.emptech/UI/Design/glass_overlay.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -23,14 +25,32 @@ class _DashboardPageState extends State<DashboardPage> {
         body: Stack(
           children: [
             GlassOverlay(
-              body: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [myGlovesContainer()],
-              ),
-            ),
+                body: Column(
+              children: [
+                Center(
+                  child: ConvexCurveContainer(
+                    borderColor: Colors.red,
+                    borderWidth: 12,
+                    height: MediaQuery.of(context).size.height / 3,
+                    curveHeight: 20,
+                    child: Container(
+                      height: 200,
+                      width: 200,
+                    ),
+                  ),
+                ),
+              ],
+            )),
           ],
         ));
   }
+
+  /*
+  Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [myGlovesContainer()],
+              ),
+   */
 
   Widget myGlovesContainer() {
     EdgeInsetsGeometry columnItemPadding =
@@ -53,17 +73,21 @@ class _DashboardPageState extends State<DashboardPage> {
         children: [
           Row(
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(left: 12),
                 child: CircleAvatar(
                     radius: 40,
                     backgroundColor: Colors.transparent,
                     child:
                         //Image(image: AssetImage("assets/onboarding_step_1.png"))),
-                        Image(image: AssetImage("assets/glove1.png"))),
+                        Icon(
+                      FontAwesomeIcons.hand,
+                      color: CustomColors.foregroundColor,
+                      size: 32,
+                    )),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 6.0),
+                padding: const EdgeInsets.only(left: 6.0),
                 child: Wrap(
                   direction: Axis.vertical,
                   children: [
