@@ -34,16 +34,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             brightness: Brightness.dark,
             primaryColor: CustomColors.foregroundColor,
-            /*
-            textTheme: TextTheme(
-                headline1: CustomTheme.headlineTextStyle,
-                bodyText1: CustomTheme.subTextStyle),
-          backgroundColor: CustomColors.foregroundColor,
-             */
           buttonTheme: CustomTheme.buttonTheme,
         ),
-        //home: const TabBarPage(),
-      home: TabBarPage(initialIndex: 2,),
+      home: TabBarPage(initialIndex: 3,),
       routes: {
 
       },

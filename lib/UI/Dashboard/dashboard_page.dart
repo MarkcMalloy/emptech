@@ -5,6 +5,7 @@ import 'package:emptech.app.emptech/UI/Design/glass_overlay.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -24,33 +25,127 @@ class _DashboardPageState extends State<DashboardPage> {
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
-            GlassOverlay(
-                body: Column(
+            GlassOverlay(body: Container()),
+            SafeArea(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
-                  child: ConvexCurveContainer(
-                    borderColor: Colors.red,
-                    borderWidth: 12,
-                    height: MediaQuery.of(context).size.height / 3,
-                    curveHeight: 20,
-                    child: Container(
-                      height: 200,
-                      width: 200,
-                    ),
+                Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Text(
+                    "Dashboard",
+                    style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 42,
+                        color: const Color(0xfffafafafa)),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: EdgeInsets.all(24.0),
+                    child: ListView.builder(
+                        itemCount: 5,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8),
+                            child: dashboardDarkElement(Icons.dashboard, "txt"),
+                          );
+                        }),
                   ),
                 ),
               ],
-            )),
+            ))
           ],
         ));
   }
 
-  /*
-  Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [myGlovesContainer()],
-              ),
-   */
+  Widget dashboardDarkElement(IconData icon, String txt) {
+    return GlassContainer(
+      elevation: 10,
+      height: 130,
+      width: MediaQuery.of(context).size.width,
+      borderRadius: BorderRadius.circular(36),
+      borderGradient: LinearGradient(
+        // Set the gradient colors and stops to achieve the desired glass effect
+        colors: [
+          CustomColors.backgroundColor.withOpacity(0.2),
+          CustomColors.backgroundColor.withOpacity(0.3),
+        ],
+        stops: const [0.3, 0.7],
+      ),
+      gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          const Color(0xFF222A33).withOpacity(0.7),
+          const Color(0xFF222A33).withOpacity(0.55),
+          const Color(0xFF222A33).withOpacity(0.45),
+          const Color(0xFF222A33).withOpacity(0.6),
+        ],
+        stops: const [0.3, 0.4, 0.55, 0.7],
+      ),
+      blur: 1,
+      child: dashboardBody("", null, Icons.handshake, null),
+    );
+  }
+
+  Widget dashboardBody(
+      String text1, String? text2, IconData icon1, IconData? icon2) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          child: Icon(
+            FontAwesomeIcons.hand,
+            color: Color(0xfffafafa),
+            size: 50,
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                dashboardColumnElement("S/N 0001"),
+                dashboardColumnElement("Owner: Niels"),
+                dashboardColumnElement("Hrs used this week: 12"),
+              ],
+            ),
+          ),
+        )
+        /*
+           Text(
+            "Gloves",
+            style:
+            GoogleFonts.montserrat(fontSize: 14, color: const Color(0xfffafafa)),
+          ),
+            */
+      ],
+    );
+  }
+
+  Widget dashboardColumnElement(String txt) {
+    return Container(
+      padding: const EdgeInsets.all(6.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.0),
+          color: Colors.grey.withOpacity(0.2)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text(
+            txt,
+            style: GoogleFonts.montserrat(
+                fontSize: 12, color: const Color(0xfffafafa)),
+          )
+        ],
+      ),
+    );
+  }
 
   Widget myGlovesContainer() {
     EdgeInsetsGeometry columnItemPadding =

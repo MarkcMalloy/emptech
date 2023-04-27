@@ -150,23 +150,17 @@ class _OnboardingPageState extends State<OnboardingPage> {
             ],
             stops: const [0.3, 0.7],
           ),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFFe0e0e0).withOpacity(0.2),
-              Color(0xFFe0e0e0).withOpacity(0.2),
-              Color(0xFFe0e0e0).withOpacity(0.2),
-              Color(0xFFe0e0e0).withOpacity(0.2),
-              /*
-              const Color(0xFF222A33).withOpacity(0.9),
-              const Color(0xFF222A33).withOpacity(0.75),
-              const Color(0xFF222A33).withOpacity(0.65),
-              const Color(0xFF222A33).withOpacity(0.8),
-               */
-            ],
-            stops: const [0.3, 0.4, 0.55, 0.7],
-          ),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  const Color(0xFF222A33).withOpacity(0.7),
+                  const Color(0xFF222A33).withOpacity(0.55),
+                  const Color(0xFF222A33).withOpacity(0.45),
+                  const Color(0xFF222A33).withOpacity(0.6),
+                ],
+                stops: const [0.3, 0.4, 0.55, 0.7],
+              ),
           blur: 3, //
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
