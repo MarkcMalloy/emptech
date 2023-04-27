@@ -39,18 +39,20 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   Widget onboardingBody() {
+    List<String> assets = ["assets/glove_2.png", "onboarding_step_1.png"];
+    List<String> texts = [OnboardingTexts.firstStepTitle, OnboardingTexts.secondStepTitle];
     final pages = List.generate(
-        3,
+        2,
         (i) => MeasurementOnboardingPage(
               index: i,
-              assetImage: 'assets/glove_2.png',
+              assetImage: assets[i],
             ));
     return Stack(
       alignment: Alignment.topCenter,
       children: [
         PageView.builder(
           controller: controller,
-          itemCount: 3,
+          itemCount: 2,
           itemBuilder: (_, index) {
             return pages[index % pages.length];
           },

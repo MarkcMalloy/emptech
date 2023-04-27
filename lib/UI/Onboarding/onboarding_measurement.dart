@@ -56,8 +56,6 @@ class _MeasurementOnboardingPageState extends State<MeasurementOnboardingPage> {
         return OnboardingTexts.firstStepTitle;
       case 1:
         return OnboardingTexts.secondStepTitle;
-      case 2:
-        return OnboardingTexts.thirdStepTitle;
     }
     return "";
   }

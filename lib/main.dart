@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           buttonTheme: CustomTheme.buttonTheme,
         ),
         //home: const TabBarPage(),
-      home: LoginPage(),
+      home: TabBarPage(initialIndex: 2,),
       routes: {
 
       },
