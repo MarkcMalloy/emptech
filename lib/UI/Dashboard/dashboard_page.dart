@@ -49,7 +49,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
                             padding: EdgeInsets.symmetric(vertical: 8),
-                            child: dashboardDarkElement(Icons.dashboard, "txt"),
+                            child: dashboardDarkElement(Icons.dashboard, "txt", index),
                           );
                         }),
                   ),
@@ -60,7 +60,7 @@ class _DashboardPageState extends State<DashboardPage> {
         ));
   }
 
-  Widget dashboardDarkElement(IconData icon, String txt) {
+  Widget dashboardDarkElement(IconData icon, String txt, int index) {
     return GlassContainer(
       elevation: 10,
       height: 130,
@@ -86,21 +86,35 @@ class _DashboardPageState extends State<DashboardPage> {
         stops: const [0.3, 0.4, 0.55, 0.7],
       ),
       blur: 1,
-      child: dashboardBody("", null, Icons.handshake, null),
+      child: dashboardBody("S/N 000${index+1}", "Owner: Niels", "Hrs used this week: ${index*2}", Icons.handshake, index),
     );
   }
 
   Widget dashboardBody(
-      String text1, String? text2, IconData icon1, IconData? icon2) {
+      String text1, String text2, String text3, IconData icon1, int index) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
-          child: Icon(
-            FontAwesomeIcons.hand,
-            color: Color(0xfffafafa),
-            size: 50,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Icon(
+                FontAwesomeIcons.hand,
+                color: Color(0xfffafafa),
+                size: 42,
+              ),
+              SizedBox(height: 12,),
+              Container(
+                width: 50,
+                decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(12.0)),
+                child: Text("${index*24}%", textAlign: TextAlign.center,),
+              ),
+              Icon(batteryIcon(index*24), color: Color(0xfffafafa),)
+            ],
           ),
         ),
         Expanded(
@@ -110,8 +124,8 @@ class _DashboardPageState extends State<DashboardPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                dashboardColumnElement("S/N 0001"),
-                dashboardColumnElement("Owner: Niels"),
+                dashboardColumnElement(text1),
+                dashboardColumnElement(text2),
                 dashboardColumnElement("Hrs used this week: 12"),
               ],
             ),
@@ -126,6 +140,19 @@ class _DashboardPageState extends State<DashboardPage> {
             */
       ],
     );
+  }
+
+  IconData batteryIcon(double percent){
+    if(percent <= 25){
+      return FontAwesomeIcons.batteryQuarter;
+    } else if(percent > 25 && percent <= 50){
+      return FontAwesomeIcons.batteryHalf;
+    } else if(percent > 50 && percent <= 75){
+      return FontAwesomeIcons.batteryThreeQuarters;
+    } else if(percent > 75 && percent <= 100){
+      return FontAwesomeIcons.batteryFull;
+    }
+    return FontAwesomeIcons.batteryFull;
   }
 
   Widget dashboardColumnElement(String txt) {
