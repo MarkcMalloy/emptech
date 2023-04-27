@@ -13,7 +13,8 @@ import 'package:motion_tab_bar_v2/motion-tab-item.dart';
 import '../Camera/camera_page.dart';
 
 class TabBarPage extends StatefulWidget {
-  const TabBarPage({Key? key}) : super(key: key);
+  final int initialIndex;
+  const TabBarPage({Key? key, required this.initialIndex}) : super(key: key);
 
   @override
   State<TabBarPage> createState() => _TabbarPageState();
@@ -28,7 +29,7 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
     super.initState();
     setState(() {
       _tabController = TabController(
-        initialIndex: 1,
+        initialIndex: widget.initialIndex,
         length: 4,
         vsync: this,
       );
@@ -109,8 +110,9 @@ class _TabbarPageState extends State<TabBarPage> with TickerProviderStateMixin {
   }
 
   Widget navBar() {
+    var tabLabels = ["Dashboard", "Order", "Docs", "Profile"];
     return MotionTabBar(
-      initialSelectedTab: "Dashboard",
+      initialSelectedTab: tabLabels[widget.initialIndex],
       useSafeArea: true, // default: true, apply safe area wrapper
       labels: const ["Dashboard", "Order", "Docs", "Profile"],
       // Profil -> Dine egne oplysninger, Hvilke handsker er i brug, Man kan administrere sine handkser + dashboard

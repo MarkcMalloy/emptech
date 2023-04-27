@@ -1,5 +1,6 @@
 import 'package:emptech.app.emptech/UI/Design/glass_overlay.dart';
 import 'package:emptech.app.emptech/UI/Login/Components/login_butotn.dart';
+import 'package:emptech.app.emptech/UI/Tabbar/tabbar_page.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -233,8 +234,16 @@ class _LoginPageState extends State<LoginPage> {
         builder: (BuildContext context) => LinkedInAuthCodeWidget(
           redirectUrl: redirectUrl,
           clientId: clientId,
-          onError: (AuthorizationFailedAction value) {},
-          onGetAuthCode: (AuthorizationSucceededAction value) {},
+          onError: (AuthorizationFailedAction value) {
+            print("AUTH ERROR!");
+          },
+          onGetAuthCode: (AuthorizationSucceededAction value) {
+            print("AUTH SUCCESS!");
+            print('Access token ${value.codeResponse.accessToken}');
+            print('Code: ${value.codeResponse.code}');
+            print('State: ${value.codeResponse.state}');
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => TabBarPage(initialIndex: 3,)));
+          },
         ),
       ),
     );
