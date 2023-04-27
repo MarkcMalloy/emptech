@@ -12,7 +12,7 @@ class LoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        function;
+        function();
       },
       child: GlassContainer(
         height: 46,

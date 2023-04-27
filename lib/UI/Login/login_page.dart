@@ -15,9 +15,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final String redirectUrl = 'https://www.youtube.com/callback';
-  final String clientId = '776rnw4e4izlvg';
-  final String clientSecret = 'rQEgboUHMLcQi59v';
+  final String redirectUrl = 'http://emptech.app.emptech';
+  final String clientId = '86czplxzrtvpz5';
+  final String clientSecret = 't3RaxP98HR69IaTZ';
 
   @override
   void initState() {
@@ -28,12 +28,10 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xfffafafa),
-      body: LinkedInAuthCodeWidget()
-    );
+        backgroundColor: const Color(0xfffafafa), body: loginBody());
   }
 
-  Widget loginBody(){
+  Widget loginBody() {
     return Stack(
       children: [
         const Positioned(
@@ -79,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        "Login",
+                        "Log in",
                         textAlign: TextAlign.start,
                         style: GoogleFonts.roboto(
                             fontSize: 32,
@@ -147,23 +145,22 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute<void>(
-                                builder: (final BuildContext context) => LinkedInAuthCodeWidget(
-                                  destroySession: logoutUser,
+                                builder: (final BuildContext context) =>
+                                    LinkedInAuthCodeWidget(
                                   redirectUrl: redirectUrl,
                                   clientId: clientId,
                                   onError: (final AuthorizationFailedAction e) {
                                     print('Error: ${e.toString()}');
                                     print('Error: ${e.stackTrace.toString()}');
                                   },
-                                  onGetAuthCode: (final AuthorizationSucceededAction response) {
-                                    print('Auth code ${response.codeResponse.code}');
+                                  onGetAuthCode:
+                                      (final AuthorizationSucceededAction
+                                          response) {
+                                    print(
+                                        'Auth code ${response.codeResponse.code}');
 
-                                    print('State: ${response.codeResponse.state}');
-
-                                    authorizationCode = AuthCodeObject(
-                                      code: response.codeResponse.code,
-                                      state: response.codeResponse.state,
-                                    );
+                                    print(
+                                        'State: ${response.codeResponse.state}');
                                     setState(() {});
 
                                     Navigator.pop(context);
@@ -229,7 +226,19 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void login() {}
+  void login() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => LinkedInAuthCodeWidget(
+          redirectUrl: redirectUrl,
+          clientId: clientId,
+          onError: (AuthorizationFailedAction value) {},
+          onGetAuthCode: (AuthorizationSucceededAction value) {},
+        ),
+      ),
+    );
+  }
 
   void signup() {}
 
