@@ -86,7 +86,7 @@ class _DashboardPageState extends State<DashboardPage> {
         stops: const [0.3, 0.4, 0.55, 0.7],
       ),
       blur: 1,
-      child: dashboardBody("S/N 000${index+1}", "Owner: Niels", "Hrs used this week: ${index*2}", Icons.handshake, index),
+      child: dashboardBody("S/N 000${index+1} - 'Niels Kragh'", "", "Hrs used this week: ${index*2}", Icons.handshake, index),
     );
   }
 
@@ -162,7 +162,7 @@ class _DashboardPageState extends State<DashboardPage> {
           borderRadius: BorderRadius.circular(12.0),
           color: Colors.grey.withOpacity(0.2)),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(
             txt,
@@ -172,77 +172,6 @@ class _DashboardPageState extends State<DashboardPage> {
         ],
       ),
     );
-  }
-
-  Widget myGlovesContainer() {
-    EdgeInsetsGeometry columnItemPadding =
-        const EdgeInsets.symmetric(vertical: 0, horizontal: 6);
-    var topStyle = GoogleFonts.montserrat(
-        fontSize: 18, color: Colors.black, fontWeight: FontWeight.w700);
-
-    var bottomStyle = GoogleFonts.roboto(
-        fontSize: 14,
-        color: Colors.grey.withOpacity(0.7),
-        fontWeight: FontWeight.w700);
-
-    return Container(
-      height: 100,
-      width: 220,
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(24.0)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(left: 12),
-                child: CircleAvatar(
-                    radius: 40,
-                    backgroundColor: Colors.transparent,
-                    child:
-                        //Image(image: AssetImage("assets/onboarding_step_1.png"))),
-                        Icon(
-                      FontAwesomeIcons.hand,
-                      color: CustomColors.foregroundColor,
-                      size: 32,
-                    )),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 6.0),
-                child: Wrap(
-                  direction: Axis.vertical,
-                  children: [
-                    Text(
-                      "My glove",
-                      style: topStyle,
-                    ),
-                    Text(
-                      "S/N 0001",
-                      style: bottomStyle,
-                    )
-                  ],
-                ),
-              )
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget glovesListView() {
-    return ListView.builder(
-        itemCount: 5,
-        itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-              leading: const Icon(Icons.list),
-              trailing: const Text(
-                "GFG",
-                style: TextStyle(color: Colors.green, fontSize: 15),
-              ),
-              title: Text("List item $index"));
-        });
   }
 
   Widget opaquePurpleLine() {
