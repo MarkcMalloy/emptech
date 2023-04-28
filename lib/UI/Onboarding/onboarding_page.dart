@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:emptech.app.emptech/API/api_service.dart';
 import 'package:emptech.app.emptech/UI/Camera/camera_page.dart';
 import 'package:emptech.app.emptech/UI/Design/glass_overlay.dart';
 import 'package:emptech.app.emptech/UI/Onboarding/Components/onboarding_texts.dart';
@@ -50,12 +51,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
               index: i,
               assetImage: assets[i],
             ));
-    return Stack(
-      alignment: Alignment.topCenter,
+    return Column(
       children: [
-        onboardingGlassyText(pages),
-        Positioned(
-            bottom: 42, left: 22, right: 22, child: onboardingBottomRow(pages)),
+        Expanded(child: onboardingGlassyText(pages), flex: 5,),
+        Expanded(child: Padding(
+          padding: EdgeInsets.only(top: 10, bottom: 50, right: 20, left: 20),
+          child: onboardingBottomRow(pages),
+        ), flex: 1,)
+
       ],
     );
   }
@@ -80,10 +83,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
               backgroundColor: Color(0xfffafafa),
               onTap: () {
                 setState(() {
-                  if (currentIndex < 3) {
+                  if (currentIndex < 1) {
                     currentIndex = currentIndex + 1;
                     controller.jumpToPage(currentIndex);
-                  } else if (currentIndex == 3) {
+                  } else if (currentIndex == 1) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => CameraPage()),
@@ -91,13 +94,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   }
                 });
               },
-              width: 100,
+              width: currentIndex < 1 ? 100 : 140,
               height: 40,
               topLeftShadowColor: Colors.grey.withOpacity(0.4),
               bottomRightShadowColor: Colors.grey.withOpacity(0.4),
               child: Center(
                 child: Text(
-                  "Next Step",
+                  currentIndex < 1 ? "Next Step" : "Open Camera",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.montserrat(
                       color: CustomColors.foregroundColor,
@@ -111,10 +114,66 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   Widget onboardingGlassyText(List<MeasurementOnboardingPage> pages) {
-    return Positioned(
-        top: 0,
-        child: Center(
-            child: GlassContainer(
+    return PageView.builder(
+      controller: controller,
+      itemCount: 2,
+      itemBuilder: (_, index) {
+        return GlassContainer(
+          height: MediaQuery.of(context).size.height / 1.5,
+          width: MediaQuery.of(context).size.width / 1.1,
+          borderRadius: BorderRadius.circular(42.0),
+          borderGradient: LinearGradient(
+            // Set the gradient colors and stops to achieve the desired glass effect
+            colors: [
+              CustomColors.backgroundColor.withOpacity(0.2),
+              CustomColors.backgroundColor.withOpacity(0.3),
+            ],
+            stops: const [0.3, 0.7],
+          ),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              const Color(0xFF222A33).withOpacity(0.7),
+              const Color(0xFF222A33).withOpacity(0.55),
+              const Color(0xFF222A33).withOpacity(0.45),
+              const Color(0xFF222A33).withOpacity(0.6),
+            ],
+            stops: const [0.3, 0.4, 0.55, 0.7],
+          ),
+          blur: 3,
+          child: Column(
+            children: [
+              Container(
+                  padding: EdgeInsets.only(top: 24),
+                  height: 200,
+                  child: pages[index % pages.length]),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Wrap(
+                  spacing: 12,
+                  direction: Axis.vertical,
+                  alignment: WrapAlignment.spaceEvenly,
+                  crossAxisAlignment: WrapCrossAlignment.start,
+                  children: [
+                    centerText(OnboardingTexts.firstStepTitle,
+                        CustomTheme.headlineTextStyle),
+                    centerText(OnboardingTexts.firstStepSubText,
+                        CustomTheme.subTextStyle),
+                    centerText(OnboardingTexts.firstStepSubText2,
+                        CustomTheme.subTextStyle)
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+  //pages[index % pages.length]
+  /*
+  GlassContainer(
           borderRadius: BorderRadius.circular(42.0),
           height: MediaQuery.of(context).size.height / 1.5,
           width: MediaQuery.of(context).size.width / 1.1,
@@ -170,8 +229,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
               )
             ],
           ),
-        )));
-  }
+        )
+   */
 
   Widget centerText(String txt, TextStyle style) {
     return Center(

@@ -90,33 +90,36 @@ class _CameraPageState extends State<CameraPage> {
             bottom: 50,
             right: 90,
             left: 90,
-            child: ElevatedButton(
-              style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        side: BorderSide(color: CustomColors.foregroundColor)),
-                  ),
-                  foregroundColor: buttonColor(CustomColors.foregroundColor),
-                  backgroundColor: buttonColor(CustomColors.backgroundColor)),
-              onPressed: () async {
-                String res = await onCaptureButtonPressed();
-                print("camera_page result: $res");
-                if(res.isNotEmpty){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CameraResultPage(
-                            imgPath: res,
-                          )
-                      )
-                  );
-                }
-              },
-              child: Text(
-                'Measure',
-                style: GoogleFonts.roboto(
-                    fontSize: 22, fontWeight: FontWeight.w400),
+            child: Container(
+              height: 60,
+              child: ElevatedButton(
+                style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          side: BorderSide(color: CustomColors.foregroundColor)),
+                    ),
+                    foregroundColor: buttonColor(CustomColors.foregroundColor),
+                    backgroundColor: buttonColor(CustomColors.backgroundColor)),
+                onPressed: () async {
+                  String res = await onCaptureButtonPressed();
+                  print("camera_page result: $res");
+                  if(res.isNotEmpty){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CameraResultPage(
+                              imgPath: res,
+                            )
+                        )
+                    );
+                  }
+                },
+                child: Text(
+                  'Measure',
+                  style: GoogleFonts.roboto(
+                      fontSize: 22, fontWeight: FontWeight.w400),
+                ),
               ),
             )
           ),
