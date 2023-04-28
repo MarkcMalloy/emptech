@@ -87,10 +87,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     currentIndex = currentIndex + 1;
                     controller.jumpToPage(currentIndex);
                   } else if (currentIndex == 1) {
+                    uploadImage();
+                    /*
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => CameraPage()),
                     );
+                     */
                   }
                 });
               },
@@ -111,6 +114,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
         ],
       ),
     );
+  }
+  
+  Future<void> uploadImage() async {
+    ApiService apiservice = ApiService();
+    var file = File("assets/niels.png");
+    Image img = Image.asset("assets/niels.png");
+
+    print("www "+file.path);
+    await apiservice.sendImage(file);
   }
 
   Widget onboardingGlassyText(List<MeasurementOnboardingPage> pages) {
@@ -171,67 +183,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       },
     );
   }
-  //pages[index % pages.length]
-  /*
-  GlassContainer(
-          borderRadius: BorderRadius.circular(42.0),
-          height: MediaQuery.of(context).size.height / 1.5,
-          width: MediaQuery.of(context).size.width / 1.1,
-          borderGradient: LinearGradient(
-            // Set the gradient colors and stops to achieve the desired glass effect
-            colors: [
-              CustomColors.backgroundColor.withOpacity(0.2),
-              CustomColors.backgroundColor.withOpacity(0.3),
-            ],
-            stops: const [0.3, 0.7],
-          ),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              const Color(0xFF222A33).withOpacity(0.7),
-              const Color(0xFF222A33).withOpacity(0.55),
-              const Color(0xFF222A33).withOpacity(0.45),
-              const Color(0xFF222A33).withOpacity(0.6),
-            ],
-            stops: const [0.3, 0.4, 0.55, 0.7],
-          ),
-          blur: 3, //
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.only(top: 24),
-                height: 200,
-                child: PageView.builder(
-                  controller: controller,
-                  itemCount: 2,
-                  itemBuilder: (_, index) {
-                    return pages[index % pages.length];
-                  },
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: Wrap(
-                  spacing: 12,
-                  direction: Axis.vertical,
-                  alignment: WrapAlignment.spaceEvenly,
-                  crossAxisAlignment: WrapCrossAlignment.start,
-                  children: [
-                    centerText(OnboardingTexts.firstStepTitle,
-                        CustomTheme.headlineTextStyle),
-                    centerText(OnboardingTexts.firstStepSubText,
-                        CustomTheme.subTextStyle),
-                    centerText(OnboardingTexts.firstStepSubText2,
-                        CustomTheme.subTextStyle)
-                  ],
-                ),
-              )
-            ],
-          ),
-        )
-   */
-
+  
   Widget centerText(String txt, TextStyle style) {
     return Center(
       child: Text(

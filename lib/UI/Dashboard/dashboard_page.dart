@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:neumorphic_button/neumorphic_button.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -49,7 +50,8 @@ class _DashboardPageState extends State<DashboardPage> {
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
                             padding: EdgeInsets.symmetric(vertical: 8),
-                            child: dashboardDarkElement(Icons.dashboard, "txt", index),
+                            child: dashboardDarkElement(
+                                Icons.dashboard, "txt", index),
                           );
                         }),
                   ),
@@ -86,7 +88,8 @@ class _DashboardPageState extends State<DashboardPage> {
         stops: const [0.3, 0.4, 0.55, 0.7],
       ),
       blur: 1,
-      child: dashboardBody("S/N 000${index+1} - 'Niels Kragh'", "", "Hrs used this week: ${index*2}", Icons.handshake, index),
+      child: dashboardBody("S/N 000${index + 1} - 'Niels Kragh'", "",
+          "Hrs used this week: ${index * 2}", Icons.handshake, index),
     );
   }
 
@@ -105,15 +108,23 @@ class _DashboardPageState extends State<DashboardPage> {
                 color: Color(0xfffafafa),
                 size: 42,
               ),
-              SizedBox(height: 12,),
+              SizedBox(
+                height: 12,
+              ),
               Container(
                 width: 50,
                 decoration: BoxDecoration(
                     color: Colors.grey.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(12.0)),
-                child: Text("${index*24}%", textAlign: TextAlign.center,),
+                child: Text(
+                  "${index * 24}%",
+                  textAlign: TextAlign.center,
+                ),
               ),
-              Icon(batteryIcon(index*24), color: Color(0xfffafafa),)
+              Icon(
+                batteryIcon(index * 24),
+                color: Color(0xfffafafa),
+              )
             ],
           ),
         ),
@@ -125,31 +136,42 @@ class _DashboardPageState extends State<DashboardPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 dashboardColumnElement(text1),
-                dashboardColumnElement(text2),
                 dashboardColumnElement("Hrs used this week: 12"),
+                NeumorphicButton(
+                    padding: EdgeInsets.all(2),
+                    backgroundColor: Color(0xfffafafa).withOpacity(0.9),
+                    onTap: () {
+                    },
+                    width: 200,
+                    height: 25,
+                    topLeftShadowColor: Colors.grey.withOpacity(0.4),
+                    bottomRightShadowColor: Colors.grey.withOpacity(0.4),
+                    child: Center(
+                      child: Text(
+                        "Edit",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.roboto(
+                            color: CustomColors.foregroundColor,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16),
+                      ),
+                    ))
               ],
             ),
           ),
         )
-        /*
-           Text(
-            "Gloves",
-            style:
-            GoogleFonts.montserrat(fontSize: 14, color: const Color(0xfffafafa)),
-          ),
-            */
       ],
     );
   }
 
-  IconData batteryIcon(double percent){
-    if(percent <= 25){
+  IconData batteryIcon(double percent) {
+    if (percent <= 25) {
       return FontAwesomeIcons.batteryQuarter;
-    } else if(percent > 25 && percent <= 50){
+    } else if (percent > 25 && percent <= 50) {
       return FontAwesomeIcons.batteryHalf;
-    } else if(percent > 50 && percent <= 75){
+    } else if (percent > 50 && percent <= 75) {
       return FontAwesomeIcons.batteryThreeQuarters;
-    } else if(percent > 75 && percent <= 100){
+    } else if (percent > 75 && percent <= 100) {
       return FontAwesomeIcons.batteryFull;
     }
     return FontAwesomeIcons.batteryFull;

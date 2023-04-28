@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:emptech.app.emptech/UI/Design/glass_overlay.dart';
+import 'package:emptech.app.emptech/UI/Docs/Components/pdf_list_item.dart';
 //import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -36,27 +37,9 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
     setState(() {
       _searchResults = widget.documents;
     });
-    //doesPdfExist();
-  }
-
-  Future<void> doesPdfExist() async {
-    File file = File("assets/documents/order_glove_guide.pdf");
-    final directory = await getApplicationDocumentsDirectory();
-    var doesExist = await file.exists();
-    var filename = widget.documents.first.filename;
-    // for a file
-    /*
-    await io.File(filename).exists();
-    print("PDF $filename exists: ${io.File(filename).existsSync()}");
-
-    // for a directory
-    await io.Directory(filename).exists();
-    io.Directory(filename).existsSync();
-     */
   }
 
   void _onSearchChanged(String searchText) {
@@ -69,9 +52,8 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
     });
   }
 
-  void _onListItemTapped(PdfDocument document) {
+  void onListItemTapped(PdfDocument document) {
     // Handle opening the PDF file here
-    print('Opening PDF file: ${document.filename}');
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -88,7 +70,7 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
         body: Stack(
           children: [
             GlassOverlay(body: Container()),
-            Positioned(top: 20, right: 12, left: 12, child: topText()),
+            Positioned(top: 60, right: 12, left: 12, child: topText()),
             Positioned(
               child: documentListView(),
               right: 6,
@@ -109,7 +91,7 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 32),
             width: MediaQuery.of(context).size.width / 1.1,
-            height: MediaQuery.of(context).size.height / 1.4,
+            height: MediaQuery.of(context).size.height / 1.5,
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
@@ -130,7 +112,7 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
                 searchTextField(),
                 Container(
                   height: 2,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: CustomColors.foregroundColor,
                   ),
                   width: MediaQuery.of(context).size.width,
@@ -146,7 +128,7 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
                             top: 8, bottom: 4, right: 4, left: 4),
                         child: ClayContainer(
                           borderRadius: 12.0,
-                          child: pdfListItem(index),
+                          child: PDFListItem(function: onListItemTapped, index: index, document: _searchResults[index]),
                         ),
                       );
                     },
@@ -160,87 +142,29 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
     );
   }
 
-  /*
-
-  /*
-                        Neumorphic(
-                          style: const NeumorphicStyle(
-                              shape: NeumorphicShape.concave,
-                              depth: 2,
-                              intensity: 0.7,
-                              color: Colors.white,
-                              lightSource: LightSource.topLeft),
-                          child: pdfListItem(index)),
-                         */
-     child: ListView.builder(
-          itemCount: _searchResults.length,
-          itemBuilder: (BuildContext context, int index) {
-            return pdfListItem(index);
-          },
-        ),
-   */
-
   Widget searchTextField() {
     return ClayContainer(
         borderRadius: 12.0,
         child: TextField(
+          cursorColor: CustomColors.foregroundColor.withOpacity(0.5),
+            style: GoogleFonts.roboto(
+                color: CustomColors.foregroundColor,
+                fontWeight: FontWeight.w600),
             textAlign: TextAlign.center,
             controller: _searchController,
             onChanged: _onSearchChanged,
             decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: CustomColors.foregroundColor.withOpacity(0.5),
+                    width: 2.0),
+              ),
               hintText: 'Search for Documentation files...',
               hintStyle: GoogleFonts.roboto(
                   fontSize: 18.0,
                   color: CustomColors.foregroundColor,
                   fontWeight: FontWeight.w600),
             )));
-    /*
-    Neumorphic(
-      style: const NeumorphicStyle(
-          shape: NeumorphicShape.concave,
-          depth: 2,
-          intensity: 0.7,
-          color: Color(0xfffafafa),
-          lightSource: LightSource.topRight),
-      child: ),
-      ),
-    )
-     */
-  }
-
-  Widget pdfListItem(int index) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-      child: Container(
-        color: Colors.transparent,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            const Icon(
-              Icons.picture_as_pdf,
-              color: CustomColors.foregroundColor,
-              size: 32,
-            ),
-            Text(
-              _searchResults[index].filename,
-              style: GoogleFonts.roboto(
-                  //color: Color(0xfffafafa),
-                  color: CustomColors.foregroundColor,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 15),
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.chevron_right,
-                color: CustomColors.foregroundColor,
-                size: 32,
-              ),
-              onPressed: () => _onListItemTapped(_searchResults[index]),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
   Widget topText() {

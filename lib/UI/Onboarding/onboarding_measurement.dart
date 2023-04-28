@@ -31,7 +31,6 @@ class _MeasurementOnboardingPageState extends State<MeasurementOnboardingPage>
         AnimationController(duration: const Duration(seconds: 2), vsync: this);
     _controller.forward();
     _controller.addStatusListener((status) {
-      print(status.toString());
       if (status == AnimationStatus.completed) {
         setState(() {
           _showFirstIcon = !_showFirstIcon;
