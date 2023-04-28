@@ -32,16 +32,15 @@ class _MeasurementOnboardingPageState extends State<MeasurementOnboardingPage>
     _controller.forward();
     _controller.addStatusListener((status) {
       print(status.toString());
-      if (status == AnimationStatus.completed){
+      if (status == AnimationStatus.completed) {
         setState(() {
           _showFirstIcon = !_showFirstIcon;
         });
         _controller.reverse();
       }
-      if(status == AnimationStatus.dismissed){
+      if (status == AnimationStatus.dismissed) {
         _controller.forward();
       }
-
     });
   }
 
@@ -53,57 +52,40 @@ class _MeasurementOnboardingPageState extends State<MeasurementOnboardingPage>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.transparent,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              Container(
-                  height: MediaQuery.of(context).size.height / 3.5,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(36.0),
-                          bottomLeft: Radius.circular(36.0))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: Center(
-                      child: hands(),
-                    ),
-                  )),
-              //TODO: Maybe implement onboarding glassy text here
-            ],
-          ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(6.0),
+      child: Center(
+        child: hands(),
       ),
     );
   }
 
   Widget hands() {
-    return AnimatedCrossFade(
-      alignment: Alignment.center,
-        firstChild: const Icon(
-          FontAwesomeIcons.solidHand,
-          color: CustomColors.foregroundColor,
-          size: 64,
+    return AspectRatio(
+      aspectRatio: 1 / 1.414,
+      child: Container(
+        padding: EdgeInsets.all(12),
+        color: Colors.white,
+        child: Center(
+          child: AnimatedCrossFade(
+              alignment: Alignment.center,
+              firstChild: const Icon(
+                FontAwesomeIcons.solidHand,
+                color: Colors.redAccent,
+                size: 64,
+              ),
+              secondChild: const Icon(
+                FontAwesomeIcons.solidHandSpock,
+                color: Colors.green,
+                size: 64,
+              ),
+              crossFadeState: _showFirstIcon
+                  ? CrossFadeState.showFirst
+                  : CrossFadeState.showSecond,
+              duration: const Duration(milliseconds: 250)),
         ),
-        secondChild: const Icon(
-          FontAwesomeIcons.solidHandSpock,
-          color: CustomColors.foregroundColor,
-          size: 64,
-        ),
-        crossFadeState: _showFirstIcon
-            ? CrossFadeState.showFirst
-            : CrossFadeState.showSecond,
-        duration: const Duration(milliseconds: 250));
-  }
-
-  Widget assetImage() {
-    return Image(image: AssetImage(widget.assetImage));
+      ),
+    );
   }
 
   String fetchOnboardingHeadline() {

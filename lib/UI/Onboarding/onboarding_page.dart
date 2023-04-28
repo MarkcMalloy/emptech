@@ -23,6 +23,11 @@ class OnboardingPage extends StatefulWidget {
 
 class _OnboardingPageState extends State<OnboardingPage> {
   int currentIndex = 0;
+  List<String> assets = ["assets/glove_2.png", "onboarding_step_1.png"];
+  List<String> texts = [
+    OnboardingTexts.firstStepTitle,
+    OnboardingTexts.secondStepTitle
+  ];
 
   PageController controller = PageController();
 
@@ -39,8 +44,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   Widget onboardingBody() {
-    List<String> assets = ["assets/glove_2.png", "onboarding_step_1.png"];
-    List<String> texts = [OnboardingTexts.firstStepTitle, OnboardingTexts.secondStepTitle];
     final pages = List.generate(
         2,
         (i) => MeasurementOnboardingPage(
@@ -50,14 +53,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     return Stack(
       alignment: Alignment.topCenter,
       children: [
-        PageView.builder(
-          controller: controller,
-          itemCount: 2,
-          itemBuilder: (_, index) {
-            return pages[index % pages.length];
-          },
-        ),
-        onboardingGlassyText(),
+        onboardingGlassyText(pages),
         Positioned(
             bottom: 42, left: 22, right: 22, child: onboardingBottomRow(pages)),
       ],
@@ -87,14 +83,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   if (currentIndex < 3) {
                     currentIndex = currentIndex + 1;
                     controller.jumpToPage(currentIndex);
-                  }
-                  else if(currentIndex == 3){
+                  } else if (currentIndex == 3) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => CameraPage()),
                     );
                   }
-
                 });
               },
               width: 100,
@@ -115,78 +109,63 @@ class _OnboardingPageState extends State<OnboardingPage> {
       ),
     );
   }
-  /*
-  style: Buttonstyle(
-                backgroundColor: MaterialStatePropertyAll(
-                    Color(0xFF9475FF).withOpacity(0.8)),
-                alignment: Alignment.center,
-                shape:
-                MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      side: const BorderSide(
-                          color: CustomColors.foregroundColor)),
-                )),
-   */
 
-  Widget onboardingGlassyText() {
+  Widget onboardingGlassyText(List<MeasurementOnboardingPage> pages) {
     return Positioned(
-        top: MediaQuery.of(context).size.height / 3,
+        top: 0,
         child: Center(
             child: GlassContainer(
           borderRadius: BorderRadius.circular(42.0),
-          height: MediaQuery.of(context).size.height / 3,
+          height: MediaQuery.of(context).size.height / 1.5,
           width: MediaQuery.of(context).size.width / 1.1,
           borderGradient: LinearGradient(
             // Set the gradient colors and stops to achieve the desired glass effect
             colors: [
               CustomColors.backgroundColor.withOpacity(0.2),
               CustomColors.backgroundColor.withOpacity(0.3),
-
-              /*
-                Colors.white.withOpacity(0.1),
-                Colors.white.withOpacity(0.3)
-                 */
             ],
             stops: const [0.3, 0.7],
           ),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  const Color(0xFF222A33).withOpacity(0.7),
-                  const Color(0xFF222A33).withOpacity(0.55),
-                  const Color(0xFF222A33).withOpacity(0.45),
-                  const Color(0xFF222A33).withOpacity(0.6),
-                ],
-                stops: const [0.3, 0.4, 0.55, 0.7],
-              ),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              const Color(0xFF222A33).withOpacity(0.7),
+              const Color(0xFF222A33).withOpacity(0.55),
+              const Color(0xFF222A33).withOpacity(0.45),
+              const Color(0xFF222A33).withOpacity(0.6),
+            ],
+            stops: const [0.3, 0.4, 0.55, 0.7],
+          ),
           blur: 3, //
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 4, left: 12, right: 12),
-                child: Text(
-                  OnboardingTexts.firstStepTitle,
-                  style: CustomTheme.headlineTextStyle,
-                  textAlign: TextAlign.center,
+              Container(
+                padding: EdgeInsets.only(top: 24),
+                height: 200,
+                child: PageView.builder(
+                  controller: controller,
+                  itemCount: 2,
+                  itemBuilder: (_, index) {
+                    return pages[index % pages.length];
+                  },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
-                child: Text(
-                  OnboardingTexts.firstStepSubText,
-                  style: CustomTheme.subTextStyle,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 24, left: 12, right: 12),
-                child: Text(
-                  OnboardingTexts.firstStepSubText2,
-                  style: CustomTheme.subTextStyle,
-                  textAlign: TextAlign.center,
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Wrap(
+                  spacing: 12,
+                  direction: Axis.vertical,
+                  alignment: WrapAlignment.spaceEvenly,
+                  crossAxisAlignment: WrapCrossAlignment.start,
+                  children: [
+                    centerText(OnboardingTexts.firstStepTitle,
+                        CustomTheme.headlineTextStyle),
+                    centerText(OnboardingTexts.firstStepSubText,
+                        CustomTheme.subTextStyle),
+                    centerText(OnboardingTexts.firstStepSubText2,
+                        CustomTheme.subTextStyle)
+                  ],
                 ),
               )
             ],
@@ -194,19 +173,24 @@ class _OnboardingPageState extends State<OnboardingPage> {
         )));
   }
 
+  Widget centerText(String txt, TextStyle style) {
+    return Center(
+      child: Text(
+        txt,
+        style: style,
+        textAlign: TextAlign.start,
+      ),
+    );
+  }
+
   Widget onboardingGlassyOverlay(Widget body) {
     return GlassContainer(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       borderGradient: LinearGradient(
-        // Set the gradient colors and stops to achieve the desired glass effect
         colors: [
           CustomColors.backgroundColor.withOpacity(0.2),
           CustomColors.backgroundColor.withOpacity(0.3)
-          /*
-                Colors.white.withOpacity(0.1),
-                Colors.white.withOpacity(0.3)
-                 */
         ],
         stops: const [0.3, 0.7],
       ),
@@ -222,37 +206,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
         ],
         stops: const [0, 0.3, 0.6, 0.9],
       ),
-      blur: 6, // Set the blur value to achieve the desired glass effect
-      child: SafeArea(child: body),
-    );
-  }
-
-  Widget onboardingGlassyRow() {
-    return GlassContainer(
-      padding: EdgeInsets.symmetric(horizontal: 22),
-      height: 60,
-      borderRadius: BorderRadius.circular(16.0),
-      width: MediaQuery.of(context).size.width - 44,
-      borderGradient: LinearGradient(
-        colors: [
-          const Color(0xFF222A33).withOpacity(0.5),
-          const Color(0xFF222A33).withOpacity(0.3),
-        ],
-        stops: const [0.3, 0.7],
-      ),
-      gradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [
-          const Color(0xFF222A33).withOpacity(0.8),
-          const Color(0xFF222A33).withOpacity(0.5),
-          const Color(0xFF222A33).withOpacity(0.5),
-          const Color(0xFF222A33).withOpacity(0.4),
-        ],
-        stops: const [0.3, 0.4, 0.55, 0.7],
-      ),
       blur: 6,
-      //child: onboardingBottomRow(),
+      child: SafeArea(child: body),
     );
   }
 }
