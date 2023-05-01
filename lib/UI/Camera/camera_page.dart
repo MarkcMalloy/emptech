@@ -27,7 +27,6 @@ class _CameraPageState extends State<CameraPage> {
     super.initState();
     _initializeCamera();
   }
-
   Future<void> _initializeCamera() async {
     WidgetsFlutterBinding.ensureInitialized();
     _cameras = await availableCameras();
