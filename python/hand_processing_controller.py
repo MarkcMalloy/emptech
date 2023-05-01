@@ -31,8 +31,8 @@ class HandProcessor:
                     distance = distance * mm_per_pixel
                     cx = (x1 + x2) // 2
                     cy = (y1 + y2) // 2
-                    cv2.putText(drawn_image, f'{distance:.2f} mm', (cx, cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
-                                (255, 0, 0), 1, cv2.LINE_AA)
+                    cv2.putText(drawn_image, f'{distance:.2f} mm', (cx, cy), cv2.FONT_HERSHEY_SIMPLEX, 1.1,
+                                (255, 0, 0), 2, cv2.LINE_AA)
         return drawn_image
 
     def calculate_distance(self, image, hand_landmarks):

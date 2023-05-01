@@ -12,19 +12,16 @@ class CustomTheme {
   ///* TextStyles
   /// Headline Textstyles
   static TextStyle headlineTextStyle = GoogleFonts.montserrat(
-      color: CustomColors.headlineColor,
-      fontSize: 36,
-      fontWeight: FontWeight.w700);
+      color: Color(0xfffafafa), fontSize: 36, fontWeight: FontWeight.w500);
 
   static TextStyle headlineTextStyle2 =
-      GoogleFonts.montserrat(color: CustomColors.subTextColor, fontSize: 36);
+      GoogleFonts.montserrat(color: Color(0xfffafafa), fontSize: 36);
 
   /// Subtext Textstyles
-  static TextStyle subTextStyle = GoogleFonts.roboto(
-      color: CustomColors.subTextColor,
-      fontSize: 18,
-      fontWeight: FontWeight.w800);
+  static TextStyle subTextStyle = GoogleFonts.montserrat(
+      color: Color(0xfffafafa),
+      fontSize: 16,
+      fontWeight: FontWeight.w500);
 
   /// TextStyles */
-
 }
