@@ -86,14 +86,4 @@ class _MeasurementOnboardingPageState extends State<MeasurementOnboardingPage>
       ),
     );
   }
-
-  String fetchOnboardingHeadline() {
-    switch (widget.index) {
-      case 0:
-        return OnboardingTexts.firstStepTitle;
-      case 1:
-        return OnboardingTexts.secondStepTitle;
-    }
-    return "";
-  }
 }

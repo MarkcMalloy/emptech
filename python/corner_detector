@@ -8,7 +8,7 @@ paper_detector = PaperController()
 hand_processor = HandProcessor()
 
 # Call the find_a4_contour() method with an image path as an argument
-image_path = "../assets/niels(1).jpg"  # Replace with your actual image file path
+image_path = "../assets/niels.jpg"  # Replace with your actual image file path
 # Load the image
 image = cv2.imread(image_path)
 

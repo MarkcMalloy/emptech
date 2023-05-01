@@ -53,11 +53,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
             ));
     return Column(
       children: [
-        Expanded(child: onboardingGlassyText(pages), flex: 5,),
-        Expanded(child: Padding(
-          padding: EdgeInsets.only(top: 10, bottom: 50, right: 20, left: 20),
+        Expanded(flex: 5,child: onboardingGlassyText(pages),),
+        Expanded(flex: 1,child: Padding(
+          padding: const EdgeInsets.only(top: 10, bottom: 50, right: 20, left: 20),
           child: onboardingBottomRow(pages),
-        ), flex: 1,)
+        ),)
 
       ],
     );
@@ -65,22 +65,22 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   Widget onboardingBottomRow(List<MeasurementOnboardingPage> pages) {
     return Container(
-      padding: EdgeInsets.all(6.0),
+      padding: const EdgeInsets.all(6.0),
       decoration: BoxDecoration(
-          color: Color(0xfffafafa), borderRadius: BorderRadius.circular(16.0)),
+          color: const Color(0xfffafafa), borderRadius: BorderRadius.circular(16.0)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
             child: SmoothPageIndicator(
                 controller: controller, // PageController
                 count: pages.length,
                 effect: const WormEffect(activeDotColor: Color(0xFF9475FF))),
           ),
           NeumorphicButton(
-              padding: EdgeInsets.all(2),
-              backgroundColor: Color(0xfffafafa),
+              padding: const EdgeInsets.all(2),
+              backgroundColor: const Color(0xfffafafa),
               onTap: () {
                 setState(() {
                   if (currentIndex < 1) {
@@ -119,9 +119,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
   Future<void> uploadImage() async {
     ApiService apiservice = ApiService();
     var file = File("assets/niels.png");
-    Image img = Image.asset("assets/niels.png");
 
-    print("www "+file.path);
+    print(file.path);
     await apiservice.sendImage(file);
   }
 
@@ -157,7 +156,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           child: Column(
             children: [
               Container(
-                  padding: EdgeInsets.only(top: 24),
+                  padding: const EdgeInsets.only(top: 24),
                   height: 200,
                   child: pages[index % pages.length]),
               Container(
