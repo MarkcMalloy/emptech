@@ -17,7 +17,6 @@ class _CameraResultPageState extends State<CameraResultPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("yo");
   }
 
   @override
@@ -37,24 +36,15 @@ class ImageDisplayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<SharedPreferences>(
-      future: SharedPreferences.getInstance(),
-      builder:
-          (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
-        if (snapshot.hasData) {
-          String? base64Image = snapshot.data!.getString(imagePath);
-          if (base64Image != null) {
-            return Image.memory(
-              base64Decode(base64Image),
-              fit: BoxFit.cover,
-            );
-          } else {
-            return Text('Image not found');
-          }
-        } else {
-          return CircularProgressIndicator();
-        }
-      },
-    );
+    return Scaffold(body:
+      Stack(children: [
+        Positioned.fill(
+          child: AspectRatio(
+            aspectRatio: MediaQuery.of(context).size.aspectRatio,
+            //child: CameraPreview(_cameraController),
+            child: Image.asset(imagePath),
+          ),
+        )
+      ],),);
   }
 }

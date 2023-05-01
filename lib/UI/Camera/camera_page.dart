@@ -20,6 +20,7 @@ class _CameraPageState extends State<CameraPage> {
   late List<CameraDescription> _cameras;
   ApiService apiService = ApiService();
   String? _imagePath;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -52,7 +53,6 @@ class _CameraPageState extends State<CameraPage> {
         '${DateTime.now()}.png',
       );
 
-
       var img = await _cameraController.takePicture();
 
       // Send image as HTTP POST request
@@ -66,7 +66,6 @@ class _CameraPageState extends State<CameraPage> {
     }
   }
 
-
   @override
   void dispose() {
     _cameraController.dispose();
@@ -79,50 +78,71 @@ class _CameraPageState extends State<CameraPage> {
       body: Stack(
         children: [
           Visibility(
-            visible: _cameraController.value.isInitialized,
+            //visible: _cameraController.value.isInitialized,
+            visible: true,
             child: Positioned.fill(
-            child: AspectRatio(
-              aspectRatio: MediaQuery.of(context).size.aspectRatio,
-              child: CameraPreview(_cameraController),
+              child: AspectRatio(
+                aspectRatio: MediaQuery.of(context).size.aspectRatio,
+                //child: CameraPreview(_cameraController),
+                child: Image.asset("assets/niels.png"),
+              ),
             ),
-          ),),
+          ),
+          Visibility(
+            child: Center(
+              child: CircularProgressIndicator(
+                color: CustomColors.foregroundColor,
+                strokeWidth: 12,
+              ),
+            ),
+            replacement: Container(),
+            visible: _isLoading,
+          ),
           Positioned(
-            bottom: 50,
-            right: 90,
-            left: 90,
-            child: Container(
-              height: 60,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          side: BorderSide(color: CustomColors.foregroundColor)),
-                    ),
-                    foregroundColor: buttonColor(CustomColors.foregroundColor),
-                    backgroundColor: buttonColor(CustomColors.backgroundColor)),
-                onPressed: () async {
-                  String res = await onCaptureButtonPressed();
-                  print("camera_page result: $res");
-                  if(res.isNotEmpty){
+              bottom: 50,
+              right: 90,
+              left: 90,
+              child: Container(
+                height: 60,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            side: BorderSide(
+                                color: CustomColors.foregroundColor)),
+                      ),
+                      foregroundColor:
+                          buttonColor(CustomColors.foregroundColor),
+                      backgroundColor:
+                          buttonColor(CustomColors.backgroundColor)),
+                  onPressed: () async {
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    await Future.delayed(Duration(milliseconds: 850));
+
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => CameraResultPage(
-                              imgPath: res,
-                            )
-                        )
-                    );
+                                  imgPath: "assets/hand_scan_result.png",
+                                )));
+                    /*
+                  String res = await onCaptureButtonPressed();
+                  print("camera_page result: $res");
+                  if(res.isNotEmpty){
+
                   }
-                },
-                child: Text(
-                  'Measure',
-                  style: GoogleFonts.roboto(
-                      fontSize: 22, fontWeight: FontWeight.w400),
+                   */
+                  },
+                  child: Text(
+                    'Measure',
+                    style: GoogleFonts.roboto(
+                        fontSize: 22, fontWeight: FontWeight.w400),
+                  ),
                 ),
-              ),
-            )
-          ),
+              )),
         ],
       ),
     );

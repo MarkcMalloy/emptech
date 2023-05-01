@@ -87,13 +87,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     currentIndex = currentIndex + 1;
                     controller.jumpToPage(currentIndex);
                   } else if (currentIndex == 1) {
-                    uploadImage();
-                    /*
+                    //uploadImage();
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => CameraPage()),
                     );
-                     */
+
                   }
                 });
               },
@@ -121,7 +121,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     var file = File("assets/niels.png");
 
     print(file.path);
-    await apiservice.sendImage(file);
+    //await apiservice.sendImage(file);
   }
 
   Widget onboardingGlassyText(List<MeasurementOnboardingPage> pages) {
