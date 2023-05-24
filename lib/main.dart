@@ -3,6 +3,7 @@ import 'package:emptech.app.emptech/UI/Camera/camera_result_page.dart';
 import 'package:emptech.app.emptech/UI/Login/login_page.dart';
 import 'package:emptech.app.emptech/Utils/emptech_colors.dart';
 import 'package:emptech.app.emptech/Utils/emptech_theme.dart';
+import 'package:emptech.app.emptech/Web/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'UI/Onboarding/onboarding_page.dart';
 import 'UI/Tabbar/tabbar_page.dart';
@@ -36,7 +37,8 @@ class MyApp extends StatelessWidget {
             primaryColor: CustomColors.foregroundColor,
           buttonTheme: CustomTheme.buttonTheme,
         ),
-      home: TabBarPage(initialIndex: 3,),
+      //home: TabBarPage(initialIndex: 3,),
+      home: DashboardWebPage(),
       routes: {
 
       },
